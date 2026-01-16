@@ -13,13 +13,13 @@ int StringToInteger(std::string number) {
     return number_int;
 }
 
-int GetValidInteger() {
+void GetValidInteger(int& number_int) {
     std::string number_string;
     std::cout << "Enter number of rows: ";
     while (true) {
         std::cin >> number_string;
-        int number_int = StringToInteger(number_string);
-        if(number_int != -1) return number_int;
+        number_int = StringToInteger(number_string);
+        if(number_int != -1) return;
         std::cout << "Invalid number. Enter again: ";
     }
 }
@@ -58,7 +58,8 @@ void ButterflyPattern(int num) {
 }
 
 int main() {
-    int number_of_rows = GetValidInteger();
+    int number_of_rows;
+    GetValidInteger(number_of_rows);
     ButterflyPattern(number_of_rows);
     return 0;
 }
