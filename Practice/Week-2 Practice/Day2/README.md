@@ -1,0 +1,1 @@
+As there were multiple files for each topic, I created seperate folders for each problem. I explored the main basics of preprocessing stage in the folder - HeaderGuards
