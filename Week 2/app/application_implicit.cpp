@@ -48,4 +48,5 @@ int main() {
         if (choice == 5) break;
         processChoice(choice);
     }
+    return 0;
 }

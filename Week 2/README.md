@@ -20,15 +20,16 @@ To check the dynamic symbols included: <br>
 ## Implicit Dynamic Linking
 ### Built the executable
 `mkdir bin` if bin doesn't exist already. <br><br>
-`g++ src/application_implicit.cpp src/menu.cpp src/input.cpp -L./lib/ -lmathops -o bin/application_implicit` <br>
+`g++ app/application_implicit.cpp utils/menu.cpp utils/input.cpp -L./lib/ -lmathops -o bin/application_implicit` <br>
 
 ### Run the executable
+`export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH`<br>
 `./bin/application_implicit`
 
 ## Explicit Dynamic Linking
 ### Build the executable
 `mkdir bin` if bin doesn't exist already.<br><br>
-`g++ src/application_explicit.cpp src/menu.cpp src/input.cpp -o bin/application_explicit -ldl` <br>
+`g++ app/application_explicit.cpp utils/menu.cpp utils/input.cpp -o bin/application_explicit -ldl` <br>
 
 ### Run the executable
 `./bin/application_explicit`

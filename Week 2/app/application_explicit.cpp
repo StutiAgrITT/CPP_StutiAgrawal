@@ -44,13 +44,13 @@ int main() {
     void *lib_handle = dlopen("./lib/libmathops.so", RTLD_LAZY);
     if (!lib_handle) {
         std::cout << "Error: " << dlerror() << '\n';
-        exit(1);
+        return 1;
     }
 
-    opType add = (opType) dlsym(lib_handle, "_Z3adddd");
-    opType subtract = (opType) dlsym(lib_handle, "_Z8subtractdd");
-    opType multiply = (opType) dlsym(lib_handle, "_Z8multiplydd");
-    divideType divide = (divideType) dlsym(lib_handle, "_Z6divideddPi");
+    opType add = (opType) dlsym(lib_handle, "add");
+    opType subtract = (opType) dlsym(lib_handle, "subtract");
+    opType multiply = (opType) dlsym(lib_handle, "multiply");
+    divideType divide = (divideType) dlsym(lib_handle, "divide");
 
     int choice;
     while (true) {
@@ -61,4 +61,5 @@ int main() {
         processChoice(choice, add, subtract, multiply, divide);
     }
     dlclose(lib_handle);
+    return 0;
 }
