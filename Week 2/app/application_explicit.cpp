@@ -47,10 +47,39 @@ int main() {
         return 1;
     }
 
-    opType add = (opType) dlsym(lib_handle, "add");
-    opType subtract = (opType) dlsym(lib_handle, "subtract");
-    opType multiply = (opType) dlsym(lib_handle, "multiply");
-    divideType divide = (divideType) dlsym(lib_handle, "divide");
+    char* error;
+
+    dlerror(); // clear old errors
+    opType add = (opType)dlsym(lib_handle, "add");
+    if ((error = dlerror()) != nullptr) {
+        std::cerr << "Error loading add: " << error << '\n';
+        dlclose(lib_handle);
+        return 1;
+    }
+
+    dlerror();
+    opType subtract = (opType)dlsym(lib_handle, "subtract");
+    if ((error = dlerror()) != nullptr) {
+        std::cerr << "Error loading subtract: " << error << '\n';
+        dlclose(lib_handle);
+        return 1;
+    }
+
+    dlerror();
+    opType multiply = (opType)dlsym(lib_handle, "multiply");
+    if ((error = dlerror()) != nullptr) {
+        std::cerr << "Error loading multiply: " << error << '\n';
+        dlclose(lib_handle);
+        return 1;
+    }
+
+    dlerror();
+    divideType divide = (divideType)dlsym(lib_handle, "divide");
+    if ((error = dlerror()) != nullptr) {
+        std::cerr << "Error loading divide: " << error << '\n';
+        dlclose(lib_handle);
+        return 1;
+    }
 
     int choice;
     while (true) {
