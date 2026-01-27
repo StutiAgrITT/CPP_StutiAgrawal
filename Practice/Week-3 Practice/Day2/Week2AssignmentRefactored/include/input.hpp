@@ -1,0 +1,2 @@
+double getValidNumber();
+int getValidChoice();
