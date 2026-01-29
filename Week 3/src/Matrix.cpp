@@ -1,11 +1,17 @@
-#include "logger.hpp"
-#include "matrix.hpp"
-#include "valid_input.hpp"
+#include "Logger.h"
+#include "Matrix.h"
+#include "ValidInput.h"
 
 double** createMatrix(int rows, int columns) {
-    double** matrix = new double*[rows];
-    for (int row = 0; row < rows; row++) {
-        *(matrix + row) = new double[columns]{0};
+    double** matrix = nullptr;
+    try {
+        matrix = new double*[rows];
+        for (int row = 0; row < rows; row++) {
+            *(matrix + row) = new double[columns]{0};
+        }
+    }
+    catch (const std::bad_alloc&) {
+        printMessage(MSG_MATRIX_ALLOCATION_FAILED);
     }
     return matrix;
 }

@@ -2,6 +2,6 @@
 #define VALID_INPUT_H
 
 double getValidDouble();
-int getValidInteger();
+int getValidPositiveInteger();
 
 #endif
