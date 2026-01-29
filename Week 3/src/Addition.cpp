@@ -4,19 +4,6 @@
 #include "ValidInput.h"
 
 double** addMatrices(double** matrix1, double** matrix2, int rows, int columns) {
-    // double** resultMatrix = createMatrix(rows, columns);
-    // if (!resultMatrix) {
-    //     return nullptr;
-    // }
-
-    // for (int row = 0; row < rows; row++) {
-    //     for (int column = 0; column < columns; column++) {
-    //         *(*(resultMatrix + row) + column) = *(*(matrix1 + row) + column)
-    //                                             + *(*(matrix2 + row) + column);
-    //     }
-    // }
-    // return resultMatrix;
-
     double** resultMatrix = nullptr;
     resultMatrix = createMatrix(rows, columns);
 
