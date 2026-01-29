@@ -14,7 +14,6 @@ const std::string MSG_INVALID_DOUBLE = "Invalid number! Please enter again: ";
 const std::string MSG_MATRIX_ALLOCATION_FAILED = "Matrix allocation failed!";
 const std::string MSG_RESULT_MATRIX = "Resultant matrix: ";
 
-
 void printMessage(const std::string message) {
     std::cout << message << std::endl;
 }

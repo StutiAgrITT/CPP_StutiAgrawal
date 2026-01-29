@@ -32,7 +32,6 @@ void multiplication() {
     double** matrix1 = createMatrix(rows1, columns1Rows2);
     double** matrix2 = createMatrix(columns1Rows2, columns2);
 
-
     if (!matrix1 || !matrix2) {
         return;
     }
