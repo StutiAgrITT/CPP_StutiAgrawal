@@ -1,16 +1,11 @@
 #include <iostream>
 
 #include "Addition.h"
+#include "Choice.h"
 #include "Logger.h"
 #include "Menu.h"
 #include "Multiplication.h"
 #include "ValidInput.h"
-
-enum Choice {
-    ADDITION = 1,
-    MULTIPLICATION,
-    EXIT
-};
 
 void processChoice(Choice choice) {
     switch (choice) {
