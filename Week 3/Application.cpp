@@ -6,12 +6,18 @@
 #include "Multiplication.h"
 #include "ValidInput.h"
 
-void processChoice(int choice) {
+enum Choice {
+    ADDITION = 1,
+    MULTIPLICATION,
+    EXIT
+};
+
+void processChoice(Choice choice) {
     switch (choice) {
-    case 1:
+    case ADDITION:
         addition();
         break;
-    case 2:
+    case MULTIPLICATION:
         multiplication();
         break;
     default:
@@ -20,12 +26,14 @@ void processChoice(int choice) {
 }
 
 void initiateMatrixOperations() {
-    int choice;
+    int choiceInt;
     while (true) {
         showMenu();
-        choice = getValidPositiveInteger();
+        choiceInt = getValidPositiveInteger();
 
-        if (choice == 3) return;
+        Choice choice = static_cast<Choice> (choiceInt);
+
+        if (choice == EXIT) return;
         processChoice(choice);
     }
 }
