@@ -1,10 +1,10 @@
 #include "../inc/Matrix.h"
-#include "../inc/Logger.h"
-#include "../inc/Utility.h"
 #include <iostream>
 
 Matrix::Matrix(int rows, int columns) 
-    : m_rows {rows}, m_columns {columns}, m_values {nullptr} {
+    : _rows {rows}, _columns {columns}, _values {nullptr} {
+    _logger = Logger::getInstance();
+    _utility = Utility::getInstance();
     allocateMemory();
 }
 
@@ -13,12 +13,15 @@ Matrix::~Matrix() {
 }
 
 Matrix::Matrix(const Matrix& other) 
-    : m_rows {other.m_rows}, m_columns {other.m_columns}, m_values {nullptr} {
+    : _rows {other._rows}, _columns {other._columns}, _values {nullptr} {
+    _logger = Logger::getInstance();
+    _utility = Utility::getInstance();
     allocateMemory();
-    if (m_values && other.m_values) {
-        for (int row = 0; row < m_rows; row++) {
-            for (int column = 0; column < m_columns; column++) {
-                m_values[row][column] = other.m_values[row][column];
+
+    if (_values && other._values) {
+        for (int row = 0; row < _rows; row++) {
+            for (int column = 0; column < _columns; column++) {
+                _values[row][column] = other._values[row][column];
             }
         }
     }
@@ -28,15 +31,15 @@ Matrix& Matrix::operator=(const Matrix& other) {
     if (this != &other) {
         deallocateMemory();
         
-        m_rows = other.m_rows;
-        m_columns = other.m_columns;
+        _rows = other._rows;
+        _columns = other._columns;
         
         allocateMemory();
         
-        if (m_values && other.m_values) {
-            for (int row = 0; row < m_rows; row++) {
-                for (int column = 0; column < m_columns; column++) {
-                    m_values[row][column] = other.m_values[row][column];
+        if (_values && other._values) {
+            for (int row = 0; row < _rows; row++) {
+                for (int column = 0; column < _columns; column++) {
+                    _values[row][column] = other._values[row][column];
                 }
             }
         }
@@ -44,38 +47,36 @@ Matrix& Matrix::operator=(const Matrix& other) {
     return *this;
 }
 
-void Matrix::allocateMemory() {
-    Logger* logger = Logger::getInstance();
-    
+void Matrix::allocateMemory() {    
     try {
-        m_values = new double*[m_rows];
-        for (int row = 0; row < m_rows; row++) {
-            m_values[row] = new double[m_columns]{0};
+        _values = new double*[_rows];
+        for (int row = 0; row < _rows; row++) {
+            _values[row] = new double[_columns]{0};
         }
     }
     catch (const std::bad_alloc&) {
-        logger->printMessage(logger->MSG_MATRIX_ALLOCATION_FAILED);
-        m_values = nullptr;
+        _logger->printMessage(_logger->MSG_MATRIX_ALLOCATION_FAILED);
+        _values = nullptr;
     }
 }
 
 void Matrix::deallocateMemory() {
-    if (m_values) {
-        for (int row = 0; row < m_rows; row++) {
-            delete[] m_values[row];
+    if (_values) {
+        for (int row = 0; row < _rows; row++) {
+            delete[] _values[row];
         }
-        delete[] m_values;
-        m_values = nullptr;
+        delete[] _values;
+        _values = nullptr;
     }
 }
 
 Matrix Matrix::operator+(const Matrix& other) const {
-    Matrix result(m_rows, m_columns);
+    Matrix result(_rows, _columns);
     
-    if (result.m_values && m_values && other.m_values) {
-        for (int row = 0; row < m_rows; row++) {
-            for (int column = 0; column < m_columns; column++) {
-                result.m_values[row][column] = m_values[row][column] + other.m_values[row][column];
+    if (result._values && _values && other._values) {
+        for (int row = 0; row < _rows; row++) {
+            for (int column = 0; column < _columns; column++) {
+                result._values[row][column] = _values[row][column] + other._values[row][column];
             }
         }
     }
@@ -84,13 +85,13 @@ Matrix Matrix::operator+(const Matrix& other) const {
 }
 
 Matrix Matrix::operator*(const Matrix& other) const {
-    Matrix result(m_rows, other.m_columns);
+    Matrix result(_rows, other._columns);
     
-    if (result.m_values && m_values && other.m_values) {
-        for (int row = 0; row < m_rows; row++) {
-            for (int column = 0; column < other.m_columns; column++) {
-                for (int k = 0; k < m_columns; k++) {
-                    result.m_values[row][column] += m_values[row][k] * other.m_values[k][column];
+    if (result._values && _values && other._values) {
+        for (int row = 0; row < _rows; row++) {
+            for (int column = 0; column < other._columns; column++) {
+                for (int k = 0; k < _columns; k++) {
+                    result._values[row][column] += _values[row][k] * other._values[k][column];
                 }
             }
         }
@@ -100,26 +101,23 @@ Matrix Matrix::operator*(const Matrix& other) const {
 }
 
 void Matrix::readValues() {
-    Utility* utility = Utility::getInstance();
-    Logger* logger = Logger::getInstance();
-    
-    for (int row = 0; row < m_rows; row++) {
-        for (int column = 0; column < m_columns; column++) {
-            logger->printMessage(logger->MSG_ENTER_VALUE, row, column);
-            m_values[row][column] = utility->getValidDouble();
+    for (int row = 0; row < _rows; row++) {
+        for (int column = 0; column < _columns; column++) {
+            _logger->printMessage(_logger->MSG_ENTER_VALUE, row, column);
+            _values[row][column] = _utility->getValidDouble();
         }
     }
 }
 
 void Matrix::printValues() const {
-    for (int row = 0; row < m_rows; row++) {
-        for (int column = 0; column < m_columns; column++) {
-            std::cout << m_values[row][column] << " ";
+    for (int row = 0; row < _rows; row++) {
+        for (int column = 0; column < _columns; column++) {
+            std::cout << _values[row][column] << " ";
         }
         std::cout << '\n';
     }
 }
 
 bool Matrix::isValid() const {
-    return m_values != nullptr;
+    return _values != nullptr;
 }

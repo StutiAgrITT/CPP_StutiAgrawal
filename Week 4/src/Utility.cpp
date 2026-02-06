@@ -1,10 +1,11 @@
 #include "Utility.h"
-#include "Logger.h"
 #include <iostream>
 
 Utility* Utility::instance = nullptr;
 
-Utility::Utility() = default;
+Utility::Utility() {
+    _logger = Logger::getInstance();
+}
 
 Utility* Utility::getInstance() {
     if (instance == nullptr) {
@@ -15,7 +16,6 @@ Utility* Utility::getInstance() {
 
 double Utility::getValidDouble() {
     double number;
-    Logger* logger = Logger::getInstance();
 
     while (true) {
         std::cin >> number;
@@ -23,12 +23,12 @@ double Utility::getValidDouble() {
         if (std::cin.fail()) {
             std::cin.clear();
             while (std::cin.get() != '\n');
-            logger->printMessage(logger->MSG_INVALID_DOUBLE);
+            _logger->printMessage(_logger->MSG_INVALID_DOUBLE);
             continue;
         }
         if (std::cin.peek() != '\n') {
             while (std::cin.get() != '\n');
-            logger->printMessage(logger->MSG_INVALID_DOUBLE);
+            _logger->printMessage(_logger->MSG_INVALID_DOUBLE);
             continue;
         }
         return number;
@@ -37,12 +37,11 @@ double Utility::getValidDouble() {
 
 int Utility::getValidPositiveInteger() {
     double number;
-    Logger* logger = Logger::getInstance();
 
     while (true) {
         number = getValidDouble();
         if (number != (int) number || number < 1) {
-            logger->printMessage(logger->MSG_INVALID_INTEGER);
+            _logger->printMessage(_logger->MSG_INVALID_INTEGER);
             continue;
         }
         return (int) number;

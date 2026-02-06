@@ -1,11 +1,17 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include "Logger.h"
+#include "Utility.h"
+
 class Matrix {
 private:
-    int m_rows;
-    int m_columns;
-    double** m_values;
+    int _rows;
+    int _columns;
+    double** _values;
+
+    Logger* _logger;
+    Utility* _utility;
 
     void allocateMemory();
     void deallocateMemory();
