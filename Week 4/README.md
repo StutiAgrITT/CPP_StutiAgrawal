@@ -9,4 +9,4 @@ Navigate to the folder where this file is present.
 `g++ main.cpp src/*.cpp -o bin/main.out -I./inc`
 
 ### 3. Run the Program
-`./main.out`
+`./bin/main.out`
