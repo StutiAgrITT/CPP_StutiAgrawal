@@ -16,7 +16,6 @@ private:
     std::vector<User*> _users;
     int _nextAccountNumber;
     int _nextUserId;
-    int _nextTransactionId;
 
     Bank();
 
@@ -43,7 +42,6 @@ public:
 
     std::string generateAccountNumber();
     std::string generateUserId();
-    std::string generateTransactionId();
 };
 
 #endif

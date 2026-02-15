@@ -20,7 +20,9 @@ public:
     double getValidPositiveDouble();
     int getValidInteger();
     std::string getValidString();
+    std::string getValidName();
     std::string getValidEmail();
+    std::string getValidPhone();
     std::string getPassword();
     std::string getCurrentDateTime();
 };

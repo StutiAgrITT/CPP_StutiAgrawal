@@ -41,7 +41,7 @@ const std::string INFO_GOODBYE = "\nGoodbye.\n";
 const std::string INFO_CURRENT_BALANCE = "Current Balance: Rs. ";
 const std::string INFO_NO_ACCOUNT = "You don't have an account yet. Please create one.";
 const std::string INFO_ACCOUNT_NUMBER = "Your Account Number: ";
-const std::string INFO_MINI_STATEMENT = "\n=== Mini Statement (Last 5 Transactions) ===";
+const std::string INFO_MINI_STATEMENT = "\n=== Mini Statement ===";
 const std::string INFO_BANK_STATEMENT = "\n=== Bank Statement (All Transactions) ===";
 const std::string INFO_ACCOUNT_DETAILS = "\n=== Account Details ===";
 const std::string INFO_NO_USERS = "No users found in the system.";

@@ -3,7 +3,7 @@
 
 Bank* Bank::instance = nullptr;
 
-Bank::Bank() : _nextAccountNumber(1001), _nextUserId(1), _nextTransactionId(1) {
+Bank::Bank() : _nextAccountNumber(1001), _nextUserId(1) {
 }
 
 Bank::~Bank() {
@@ -124,8 +124,4 @@ std::string Bank::generateAccountNumber() {
 
 std::string Bank::generateUserId() {
     return "USR" + std::to_string(_nextUserId++);
-}
-
-std::string Bank::generateTransactionId() {
-    return "TXN" + std::to_string(_nextTransactionId++);
 }

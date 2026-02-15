@@ -41,7 +41,7 @@ void Application::handleSignup() {
     std::cout << "\n=== Signup ===\n";
     
     std::cout << PROMPT_ENTER_NAME;
-    std::string name = _utility->getValidString();
+    std::string name = _utility->getValidName();
     
     std::cout << PROMPT_ENTER_EMAIL;
     std::string email = _utility->getValidEmail();
@@ -52,7 +52,7 @@ void Application::handleSignup() {
     }
     
     std::cout << PROMPT_ENTER_PHONE;
-    std::string phone = _utility->getValidString();
+    std::string phone = _utility->getValidPhone();
     
     std::cout << PROMPT_ENTER_PASSWORD;
     std::string password = _utility->getPassword();

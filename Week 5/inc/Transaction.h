@@ -13,7 +13,7 @@ private:
     double _balanceAfter;
 
 public:
-    Transaction(std::string transactionId, TransactionType,
+    Transaction(std::string transactionId, TransactionType type,
                 double amount, std::string dateTime, double balanceAfter);
     TransactionType getType();
     std::string getTypeString();

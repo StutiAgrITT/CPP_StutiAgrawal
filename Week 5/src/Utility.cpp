@@ -33,6 +33,7 @@ double Utility::getValidDouble() {
             _logger->printError(_logger->MSG_INVALID_INPUT);
             continue;
         }
+        std::cin.ignore();
         return number;
     }
 }
@@ -64,7 +65,10 @@ int Utility::getValidInteger() {
 std::string Utility::getValidString() {
     std::string input;
     std::getline(std::cin, input);
-    return input;
+    int start = input.find_first_not_of(" \t\n");
+    if (start == -1) return "";
+    int end = input.find_last_not_of(" \t\n");
+    return input.substr(start, end - start + 1);
 }
 
 std::string Utility::getValidEmail() {
@@ -85,6 +89,60 @@ std::string Utility::getValidEmail() {
         }
         _logger->printError(_logger->MSG_INVALID_EMAIL);
         std::cout << PROMPT_ENTER_EMAIL;
+    }
+}
+
+std::string Utility::getValidName() {
+    std::string name;
+
+    while (true) {
+        name = getValidString();
+        if (name.empty()) {
+            _logger->printError(_logger->MSG_INVALID_INPUT);
+            std::cout << PROMPT_ENTER_NAME;
+            continue;
+        }
+
+        bool valid = true;
+        for (char character : name) {
+            if (!isalpha(character) && character != ' ') {
+                valid = false;
+                break;
+            }
+        }
+
+        if (!valid) {
+            _logger->printError(_logger->MSG_INVALID_INPUT);
+            std::cout << PROMPT_ENTER_NAME;
+            continue;
+        }
+        return name;
+    }
+}
+
+std::string Utility::getValidPhone() {
+    std::string phone;
+    while (true) {
+        phone = getValidString();
+        if (phone.empty()) {
+            _logger->printError(_logger->MSG_INVALID_INPUT);
+            std::cout << PROMPT_ENTER_PHONE;
+            continue;
+        }
+        bool valid = true;
+        for (char character : phone) {
+            if (!isdigit(character) && (character != '+' && character != '-')) {
+                valid = false;
+                break;
+            }
+        }
+        if (phone.length() < 10) valid = false;
+        if (!valid) {
+            _logger->printError(_logger->MSG_INVALID_PHONE);
+            std::cout << PROMPT_ENTER_PHONE;
+            continue;
+        }
+        return phone;
     }
 }
 

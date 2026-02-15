@@ -14,6 +14,7 @@ public:
     const std::string MSG_INVALID_CHOICE = "Invalid choice! Please select from the menu.";
     const std::string MSG_INVALID_AMOUNT = "Invalid amount! Amount must be positive.";
     const std::string MSG_INVALID_EMAIL = "Invalid email format!";
+    const std::string MSG_INVALID_PHONE = "Invalid phone number!";
     const std::string MSG_INVALID_CREDENTIALS = "Invalid email or password!";
     const std::string MSG_INSUFFICIENT_BALANCE = "Insufficient balance!";
     const std::string MSG_ACCOUNT_NOT_FOUND = "Account not found!";

@@ -9,7 +9,7 @@ public:
           std::string phone, std::string password);
     ~Admin();
 
-    std::string getRole() override;;
+    std::string getRole() override;
 };
 
 #endif
