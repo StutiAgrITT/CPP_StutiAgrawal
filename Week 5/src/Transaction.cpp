@@ -41,6 +41,6 @@ double Transaction::getBalanceAfter() {
 
 std::string Transaction::toString() {
     return getTypeString() + " | Rs. " + std::to_string(_amount) +
-           " | Balance: Rs. " = std::to_string(_balanceAfter) +
+           " | Balance: Rs. " + std::to_string(_balanceAfter) +
            " | " + _dateTime;
 }
