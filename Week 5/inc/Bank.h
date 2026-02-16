@@ -27,13 +27,13 @@ public:
     static Bank* getInstance();
 
     User* signup(std::string name, std::string email, std::string phone, 
-                 std::string password, UserRole role);
+                 std::string password, UserRole role, double initalDeposit);
     User* login(std::string email, std::string password);
     bool emailExists(std::string email);
 
     Account* createAccount(std::string accountHolderId, double initialDeposit);
     Account* getAccount(std::string accountNumber);
-    bool deleteAccount(std::string accountNumber);
+    bool closeAccountAndDeleteUser(std::string accountNumber);
     bool freezeAccount(std::string accountNumber);
     bool unfreezeAccount(std::string accountNumber);
 

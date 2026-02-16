@@ -9,6 +9,7 @@ private:
     Utility();
     static Utility* instance;
     Logger* _logger;
+    bool isValidPassword(const std::string& password, std::string& errorMsg);
 
 public:
     Utility(const Utility&) = delete;

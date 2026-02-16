@@ -15,6 +15,7 @@ private:
     Logger* _logger;
     Utility* _utility;
     User* _currentUser;
+    bool _isRunning;
 
     void showLoginMenu();
     void handleSignup();
@@ -22,20 +23,17 @@ private:
     void handleLogout();
 
     void showAccountHolderMenu();
-    void handleCreateAccount();
     void handleDeposit();
     void handleWithdraw();
     void handleCheckBalance();
     void handleMiniStatement();
     void handleBankStatement();
-    void handleCloseAccount();
 
     void showAdminMenu();
-    void handleViewAllAccounts();
-    void handleViewAllUsers();
+    void handleViewAllUsersAndAccounts();
     void handleFreezeAccount();
     void handleUnfreezeAccount();
-    void handleDeleteAccount();
+    void handleCloseAccountAndDeleteUser();
 
     void displayAccountInfo(Account* account);
     void displayTransactions(std::vector<Transaction*> transactions);

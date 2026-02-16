@@ -1,6 +1,8 @@
 #include "Utility.h"
 #include "Constants.h"
 #include <iostream>
+#include <termios.h>
+#include <unistd.h>
 
 Utility* Utility::instance = nullptr;
 
@@ -24,13 +26,13 @@ double Utility::getValidDouble() {
         if (std::cin.fail()) {
             std::cin.clear();
             while (std::cin.get() != '\n');
-            _logger->printError(_logger->MSG_INVALID_INPUT);
+            _logger->printError(Error::INVALID_INPUT);
             continue;
         }
         
         if (std::cin.peek() != '\n') {
             while (std::cin.get() != '\n');
-            _logger->printError(_logger->MSG_INVALID_INPUT);
+            _logger->printError(Error::INVALID_INPUT);
             continue;
         }
         std::cin.ignore();
@@ -43,7 +45,7 @@ double Utility::getValidPositiveDouble() {
     while (true) {
         number = getValidDouble();
         if (number <= 0) {
-            _logger->printError(_logger->MSG_INVALID_AMOUNT);
+            _logger->printError(Error::INVALID_AMOUNT);
             continue;
         }
         return number;
@@ -55,7 +57,7 @@ int Utility::getValidInteger() {
     while (true) {
         number = getValidDouble();
         if (number != (int)number) {
-            _logger->printError(_logger->MSG_INVALID_INPUT);
+            _logger->printError(Error::INVALID_INPUT);
             continue;
         }
         return (int)number;
@@ -87,8 +89,8 @@ std::string Utility::getValidEmail() {
             dotPosition < email.length() - 1) {
             return email;
         }
-        _logger->printError(_logger->MSG_INVALID_EMAIL);
-        std::cout << PROMPT_ENTER_EMAIL;
+        _logger->printError(Error::INVALID_EMAIL);
+        _logger->printInline(Prompt::ENTER_EMAIL);
     }
 }
 
@@ -98,8 +100,8 @@ std::string Utility::getValidName() {
     while (true) {
         name = getValidString();
         if (name.empty()) {
-            _logger->printError(_logger->MSG_INVALID_INPUT);
-            std::cout << PROMPT_ENTER_NAME;
+            _logger->printError(Error::INVALID_INPUT);
+            _logger->printInline(Prompt::ENTER_NAME);
             continue;
         }
 
@@ -112,8 +114,8 @@ std::string Utility::getValidName() {
         }
 
         if (!valid) {
-            _logger->printError(_logger->MSG_INVALID_INPUT);
-            std::cout << PROMPT_ENTER_NAME;
+            _logger->printError(Error::INVALID_INPUT);
+            _logger->printInline(Prompt::ENTER_NAME);
             continue;
         }
         return name;
@@ -125,8 +127,8 @@ std::string Utility::getValidPhone() {
     while (true) {
         phone = getValidString();
         if (phone.empty()) {
-            _logger->printError(_logger->MSG_INVALID_INPUT);
-            std::cout << PROMPT_ENTER_PHONE;
+            _logger->printError(Error::INVALID_INPUT);
+            _logger->printInline(Prompt::ENTER_PHONE);
             continue;
         }
         bool valid = true;
@@ -138,25 +140,92 @@ std::string Utility::getValidPhone() {
         }
         if (phone.length() < 10) valid = false;
         if (!valid) {
-            _logger->printError(_logger->MSG_INVALID_PHONE);
-            std::cout << PROMPT_ENTER_PHONE;
+            _logger->printError(Error::INVALID_PHONE);
+            _logger->printInline(Prompt::ENTER_PHONE);
             continue;
         }
         return phone;
     }
 }
 
+bool Utility::isValidPassword(const std::string& password, std::string& errorMsg) {
+    if (password.length() < Constants::MIN_PASSWORD_LENGTH) {
+        errorMsg = Error::PASSWORD_TOO_SHORT;
+        return false;
+    }
+
+    bool hasUpper = false;
+    bool hasLower = false;
+    bool hasDigit = false;
+    bool hasSpecial = false;
+    std::string specialChars = "!@#$%^&*";
+
+    for (char character : password) {
+        if (isupper(character)) hasUpper = true;
+        if (islower(character)) hasLower = true;
+        if (isdigit(character)) hasDigit = true;
+        if (specialChars.find(character) != -1) hasSpecial = true;
+
+        if(hasUpper && hasLower && hasDigit && hasSpecial) break;
+    }
+
+    if (!hasUpper) {
+        errorMsg = Error::PASSWORD_NO_UPPERCASE;
+        return false;
+    }
+    if (!hasLower) {
+        errorMsg = Error::PASSWORD_NO_LOWERCASE;
+        return false;
+    }
+    if (!hasDigit) {
+        errorMsg = Error::PASSWORD_NO_DIGIT;
+        return false;
+    }
+    if (!hasSpecial) {
+        errorMsg = Error::PASSWORD_NO_SPECIAL;
+        return false;
+    }
+    return true;
+}
+
 std::string Utility::getPassword() {
     std::string password;
+    std::string errorMsg;
     
     while (true) {
-        password = getValidString();
-        if (password.length() < MIN_PASSWORD_LENGTH) {
-            _logger->printError(_logger->MSG_PASSWORD_TOO_SHORT);
-            std::cout << PROMPT_ENTER_PASSWORD;
-            continue;
+        password = "";
+        termios oldt;
+        tcgetattr(STDIN_FILENO, &oldt);
+        termios newt = oldt;
+        newt.c_lflag &= ~ECHO;
+        tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+        char character;
+        while (true) {
+            character = getchar();
+            if(character == '\n') {
+                _logger->printMessage("");
+                break;
+            }
+            else if (character == 127 || character == '\b') {
+                if (!password.empty()) {
+                    password.pop_back();
+                    _logger->printInline("\b \b");
+                }
+            }
+            else {
+                password += character;
+                _logger->printInline("*");
+            }
         }
-        return password;
+
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+
+        if(isValidPassword(password, errorMsg)) {
+            return password;
+        }
+        _logger->printError(errorMsg);
+        _logger->printInline(Prompt::ENTER_PASSWORD);
     }
 }
 

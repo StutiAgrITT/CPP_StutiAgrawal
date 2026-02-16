@@ -23,7 +23,7 @@ Bank* Bank::getInstance() {
 }
 
 User* Bank::signup(std::string name, std::string email, std::string phone, 
-                   std::string password, UserRole role) {
+                   std::string password, UserRole role, double initialDeposit) {
     
     if (emailExists(email)) {
         return nullptr;
@@ -34,6 +34,11 @@ User* Bank::signup(std::string name, std::string email, std::string phone,
     
     if (role == ACCOUNT_HOLDER) {
         newUser = new AccountHolder(userId, name, email, phone, password);
+        Account* newAccount = createAccount(userId, initialDeposit);
+        if (newAccount) {
+            AccountHolder* holder = dynamic_cast<AccountHolder*>(newUser);
+            holder->setAccountId(newAccount->getAccountNumber());
+        }
     }
     else if (role == ADMIN) {
         newUser = new Admin(userId, name, email, phone, password);
@@ -81,15 +86,29 @@ Account* Bank::getAccount(std::string accountNumber) {
     return nullptr;
 }
 
-bool Bank::deleteAccount(std::string accountNumber) {
-    for (int i = 0; i < _accounts.size(); i++) {
-        if (_accounts[i]->getAccountNumber() == accountNumber) {
-            delete _accounts[i];
-            _accounts.erase(_accounts.begin() + i);
-            return true;
+bool Bank::closeAccountAndDeleteUser(std::string accountNumber) {
+    Account* account = getAccount(accountNumber);
+    if (!account) {
+        return false;
+    }
+    std::string holderId = account->getAccountHolderId();
+
+    for (int accountIndex = 0; accountIndex < _accounts.size(); accountIndex++) {
+        if (_accounts[accountIndex]->getAccountNumber() == accountNumber) {
+            delete _accounts[accountIndex];
+            _accounts.erase(_accounts.begin() + accountIndex);
+            break;
         }
     }
-    return false;
+
+    for (int userIndex = 0; userIndex < _users.size(); userIndex++) {
+        if (_users[userIndex]->getUserId() == holderId) {
+            delete _users[userIndex];
+            _users.erase(_users.begin() + userIndex);
+            break;
+        }
+    }
+    return true;
 }
 
 bool Bank::freezeAccount(std::string accountNumber) {
