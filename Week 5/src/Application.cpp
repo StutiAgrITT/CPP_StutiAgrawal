@@ -110,7 +110,7 @@ void Application::handleLogin() {
     std::string email = _utility->getValidString();
     
     _logger->printInline(Prompt::ENTER_PASSWORD);
-    std::string password = _utility->getValidString();
+    std::string password = _utility->getPassword();
     
     User* user = _bank->login(email, password);
     

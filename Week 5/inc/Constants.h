@@ -4,7 +4,7 @@
 #include <string>
 
 namespace Constants {
-    const int MIN_PASSWORD_LENGTH = 6;
+    const int MIN_PASSWORD_LENGTH = 8;
     const double MIN_INITIAL_DEPOSIT = 100.0;
     const double MIN_TRANSACTION_AMOUNT = 1.0;
     const int MINI_STATEMENT_COUNT = 5;
@@ -38,7 +38,6 @@ namespace Success {
     const std::string ACCOUNT_CLOSED = "Account closed successfully!";
     const std::string ACCOUNT_FROZEN = "Account frozen successfully!";
     const std::string ACCOUNT_UNFROZEN = "Account unfrozen successfully!";
-    const std::string ACCOUNT_DELETED = "Account deleted successfully!";
 }
 
 namespace Info {
@@ -54,7 +53,6 @@ namespace Info {
     const std::string ALL_USERS = "\n=== All Users ===\n";
     const std::string NO_USERS = "No users found in the system.";
     const std::string NO_ACCOUNTS = "No accounts found in the system.";
-    const std::string ACCOUNT_DETAILS = "\n--- Account Details ---";
     const std::string SEPARATOR = "========================================";
 }
 

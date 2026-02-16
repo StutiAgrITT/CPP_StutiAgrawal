@@ -95,6 +95,7 @@ bool Bank::closeAccountAndDeleteUser(std::string accountNumber) {
 
     for (int accountIndex = 0; accountIndex < _accounts.size(); accountIndex++) {
         if (_accounts[accountIndex]->getAccountNumber() == accountNumber) {
+            account->deactivate();
             delete _accounts[accountIndex];
             _accounts.erase(_accounts.begin() + accountIndex);
             break;
