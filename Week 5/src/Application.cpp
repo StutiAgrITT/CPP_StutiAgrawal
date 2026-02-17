@@ -12,7 +12,7 @@ Application::Application() {
 Application::~Application() = default;
 
 void Application::run() {
-    _logger->printMessage(Info::WELCOME);
+    _logger->printInline(Info::WELCOME);
     while (_isRunning) {
         showLoginMenu();
     }
@@ -30,7 +30,7 @@ void Application::showLoginMenu() {
             handleSignup();
             break;
         case 3:
-            _logger->printMessage(Info::GOODBYE);
+            _logger->printInline(Info::GOODBYE);
             _isRunning = false;
             break;
         default:
@@ -39,25 +39,8 @@ void Application::showLoginMenu() {
 }
 
 void Application::handleSignup() {
-    _logger->printMessage("\n=== Signup ===\n");
-    
-    _logger->printInline(Prompt::ENTER_NAME);
-    std::string name = _utility->getValidName();
-    
-    _logger->printInline(Prompt::ENTER_EMAIL);
-    std::string email = _utility->getValidEmail();
-    
-    if (_bank->emailExists(email)) {
-        _logger->printError(Error::EMAIL_ALREADY_EXISTS);
-        return;
-    }
-    
-    _logger->printInline(Prompt::ENTER_PHONE);
-    std::string phone = _utility->getValidPhone();
-    
-    _logger->printInline(Prompt::ENTER_PASSWORD);
-    std::string password = _utility->getPassword();
-    
+    _logger->printInline(Info::SIGNUP);
+
     UserRole role;
     while (true) {
         _logger->printInline(Menu::SELECT_ROLE);
@@ -75,6 +58,23 @@ void Application::handleSignup() {
             _logger->printError(Error::INVALID_CHOICE);
         }
     }
+    
+    _logger->printInline(Prompt::ENTER_NAME);
+    std::string name = _utility->getValidName();
+    
+    _logger->printInline(Prompt::ENTER_EMAIL);
+    std::string email = _utility->getValidEmail();
+    
+    if (_bank->emailExists(email)) {
+        _logger->printError(Error::EMAIL_ALREADY_EXISTS);
+        return;
+    }
+    
+    _logger->printInline(Prompt::ENTER_PHONE);
+    std::string phone = _utility->getValidPhone();
+    
+    _logger->printInline(Prompt::ENTER_PASSWORD);
+    std::string password = _utility->getPassword();
 
     double initialDeposit = 0;
     if (role == ACCOUNT_HOLDER) {
@@ -90,11 +90,11 @@ void Application::handleSignup() {
     User* newUser = _bank->signup(name, email, phone, password, role, initialDeposit);
     
     if (newUser) {
-        _logger->printMessage(Success::SIGNUP);
+        _logger->printInline(Success::SIGNUP);
         if (role == ACCOUNT_HOLDER) {
             AccountHolder* holder = dynamic_cast<AccountHolder*>(newUser);
             if (holder) {
-                _logger->printMessage(Info::ACCOUNT_NUMBER + holder->getAccountId());
+                _logger->printInline(Info::ACCOUNT_NUMBER + holder->getAccountId() + "\n");
             }
         }
     }
@@ -116,7 +116,7 @@ void Application::handleLogin() {
     
     if (user) {
         _currentUser = user;
-        _logger->printInline(Success::LOGIN + user->getName() + "!");
+        _logger->printInline(Success::LOGIN + user->getName() + "!\n");
         
         if (user->getRole() == "Account Holder") {
             while (_currentUser != nullptr) {
@@ -136,7 +136,7 @@ void Application::handleLogin() {
 
 void Application::handleLogout() {
     _currentUser = nullptr;
-    _logger->printMessage(Success::LOGOUT);
+    _logger->printInline(Success::LOGOUT);
 }
 
 void Application::showAccountHolderMenu() {
@@ -196,8 +196,8 @@ void Application::handleDeposit() {
     double amount = _utility->getValidPositiveDouble();
     
     if (account->deposit(amount)) {
-        _logger->printMessage(Success::DEPOSIT);
-        _logger->printMessage(Info::CURRENT_BALANCE + std::to_string(account->getBalance()));
+        _logger->printInline(Success::DEPOSIT);
+        _logger->printInline(Info::CURRENT_BALANCE + std::to_string(account->getBalance()) + "\n");
     }
     else {
         _logger->printError(Error::INVALID_AMOUNT);
@@ -233,8 +233,8 @@ void Application::handleWithdraw() {
     double amount = _utility->getValidPositiveDouble();
     
     if (account->withdraw(amount)) {
-        _logger->printMessage(Success::WITHDRAWAL);
-        _logger->printMessage(Info::CURRENT_BALANCE + std::to_string(account->getBalance()));
+        _logger->printInline(Success::WITHDRAWAL);
+        _logger->printInline(Info::CURRENT_BALANCE + std::to_string(account->getBalance()));
     }
     else {
         _logger->printError(Error::INSUFFICIENT_BALANCE);
@@ -276,7 +276,7 @@ void Application::handleMiniStatement() {
     
     std::vector<Transaction*> transactions = account->getMiniStatement(Constants::MINI_STATEMENT_COUNT);
     
-    _logger->printMessage(Info::MINI_STATEMENT);
+    _logger->printInline(Info::MINI_STATEMENT);
     displayTransactions(transactions);
 }
 
@@ -297,12 +297,12 @@ void Application::handleBankStatement() {
     
     std::vector<Transaction*> transactions = account->getAllTransactions();
     
-    _logger->printMessage(Info::BANK_STATEMENT);
+    _logger->printInline(Info::BANK_STATEMENT);
     displayTransactions(transactions);
 }
 
 void Application::showAdminMenu() {
-    _logger->printInline(Menu::ADMIN + "\n");
+    _logger->printInline(Menu::ADMIN);
     int choice = _utility->getValidInteger();
     
     switch (choice) {
@@ -330,35 +330,35 @@ void Application::handleViewAllUsersAndAccounts() {
     std::vector<User*> users = _bank->getAllUsers();
     
     if (users.empty()) {
-        _logger->printMessage(Info::NO_USERS);
+        _logger->printInline(Info::NO_USERS);
         return;
     }
     
     _logger->printInline(Info::ALL_USERS);
     for (User* user : users) {
-        _logger->printMessage("\n" + Info::SEPARATOR);
-        _logger->printMessage("User ID: " + user->getUserId());
-        _logger->printMessage("Name: " + user->getName());
-        _logger->printMessage("Email: " + user->getEmail());
-        _logger->printMessage("Phone: " + user->getPhone());
-        _logger->printMessage("Role: " + user->getRole());
+        _logger->printInline("\n" + Info::SEPARATOR);
+        _logger->printInline("User ID: " + user->getUserId() + "\n");
+        _logger->printInline("Name: " + user->getName() + "\n");
+        _logger->printInline("Email: " + user->getEmail() + "\n");
+        _logger->printInline("Phone: " + user->getPhone() + "\n");
+        _logger->printInline("Role: " + user->getRole() + "\n");
 
         if (user->getRole() == "Account Holder") {
             AccountHolder* holder = dynamic_cast<AccountHolder*>(user);
             if (holder) {
                 Account* account = _bank->getAccount(holder->getAccountId());
                 if (account) {
-                    _logger->printMessage(Info::ACCOUNT_DETAILS);
+                    _logger->printInline(Info::ACCOUNT_DETAILS);
                     displayAccountInfo(account);
                 }
             }
             else {
-                _logger->printMessage("No account found.");
+                _logger->printInline("No account found.");
             }
         } else {
-            _logger->printMessage("(Admin - No account)");
+            _logger->printInline("(Admin - No account)");
         }
-        _logger->printMessage(Info::SEPARATOR);
+        _logger->printInline(Info::SEPARATOR);
     }
 }
 
@@ -367,7 +367,7 @@ void Application::handleFreezeAccount() {
     std::string accountNumber = _utility->getValidString();
     
     if (_bank->freezeAccount(accountNumber)) {
-        _logger->printMessage(Success::ACCOUNT_FROZEN);
+        _logger->printInline(Success::ACCOUNT_FROZEN);
     } else {
         _logger->printError(Error::ACCOUNT_NOT_FOUND);
     }
@@ -378,7 +378,7 @@ void Application::handleUnfreezeAccount() {
     std::string accountNumber = _utility->getValidString();
     
     if (_bank->unfreezeAccount(accountNumber)) {
-        _logger->printMessage(Success::ACCOUNT_UNFROZEN);
+        _logger->printInline(Success::ACCOUNT_UNFROZEN);
     } else {
         _logger->printError(Error::ACCOUNT_NOT_FOUND);
     }
@@ -388,25 +388,24 @@ void Application::handleCloseAccountAndDeleteUser() {
     _logger->printInline(Prompt::ENTER_ACCOUNT_NUMBER);
     std::string accountNumber = _utility->getValidString();
     if(_bank->closeAccountAndDeleteUser(accountNumber)) {
-        _logger->printMessage(Success::ACCOUNT_CLOSED);
+        _logger->printInline(Success::ACCOUNT_CLOSED);
     }
     else {
         _logger->printError(Error::ACCOUNT_NOT_FOUND);
     }
-
 }
 
 void Application::displayAccountInfo(Account* account) {
-    _logger->printMessage("\nAccount Number: " + account->getAccountNumber());
-    _logger->printMessage("Balance: Rs. " + std::to_string(account->getBalance()));
-    _logger->printMessage("Status: " + std::string(account->isActive() ? "Active" : "Closed"));
-    _logger->printMessage("Frozen: " + std::string(account->isFrozen() ? "Yes" : "No"));
-    _logger->printMessage("Created: " + account->getCreatedDate());
+    _logger->printInline("\nAccount Number: " + account->getAccountNumber() + "\n");
+    _logger->printInline("Balance: Rs. " + std::to_string(account->getBalance()) + "\n");
+    _logger->printInline("Status: " + std::string(account->isActive() ? "Active" : "Closed") + "\n");
+    _logger->printInline("Frozen: " + std::string(account->isFrozen() ? "Yes" : "No") + "\n");
+    _logger->printInline("Created: " + account->getCreatedDate() + "\n");
 }
 
 void Application::displayTransactions(std::vector<Transaction*> transactions) {
     if (transactions.empty()) {
-        _logger->printMessage(Error::NO_TRANSACTIONS);
+        _logger->printInline(Error::NO_TRANSACTIONS);
         return;
     }
     

@@ -15,7 +15,6 @@ public:
     
     static Logger* getInstance();
 
-    void printMessage(const std::string& message);
     void printError(const std::string& errorMsg);
     void printInline(const std::string& message);
 };

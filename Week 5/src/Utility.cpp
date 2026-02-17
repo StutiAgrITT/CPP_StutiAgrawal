@@ -158,7 +158,7 @@ bool Utility::isValidPassword(const std::string& password, std::string& errorMsg
     bool hasLower = false;
     bool hasDigit = false;
     bool hasSpecial = false;
-    std::string specialChars = "!@#$%^&*";
+    std::string specialChars = Constants::SPECIAL_CHARACTERS;
 
     for (char character : password) {
         if (isupper(character)) hasUpper = true;
@@ -204,7 +204,7 @@ std::string Utility::getPassword() {
         while (true) {
             character = getchar();
             if(character == '\n') {
-                _logger->printMessage("");
+                _logger->printInline("\n");
                 break;
             }
             else if (character == 127 || character == '\b') {
@@ -215,7 +215,6 @@ std::string Utility::getPassword() {
             }
             else {
                 password += character;
-                _logger->printInline("*");
             }
         }
 

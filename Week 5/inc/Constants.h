@@ -8,6 +8,7 @@ namespace Constants {
     const double MIN_INITIAL_DEPOSIT = 100.0;
     const double MIN_TRANSACTION_AMOUNT = 1.0;
     const int MINI_STATEMENT_COUNT = 5;
+    const std::string SPECIAL_CHARACTERS = "!@#$%^&*";
 }
 
 namespace Menu {
@@ -29,55 +30,56 @@ namespace Prompt {
 }
 
 namespace Success {
-    const std::string SIGNUP = "Signup successful! Account created. You can now login.";
+    const std::string SIGNUP = "Signup successful! Account created. You can now login.\n";
     const std::string LOGIN = "Login successful! Welcome, ";
-    const std::string LOGOUT = "Logged out successfully!";
-    const std::string ACCOUNT_CREATED = "Account created successfully!";
-    const std::string DEPOSIT = "Deposit successful!";
-    const std::string WITHDRAWAL = "Withdrawal successful!";
-    const std::string ACCOUNT_CLOSED = "Account closed successfully!";
-    const std::string ACCOUNT_FROZEN = "Account frozen successfully!";
-    const std::string ACCOUNT_UNFROZEN = "Account unfrozen successfully!";
+    const std::string LOGOUT = "Logged out successfully!\n";
+    const std::string ACCOUNT_CREATED = "Account created successfully!\n";
+    const std::string DEPOSIT = "Deposit successful!\n";
+    const std::string WITHDRAWAL = "Withdrawal successful!\n";
+    const std::string ACCOUNT_CLOSED = "Account closed successfully!\n";
+    const std::string ACCOUNT_FROZEN = "Account frozen successfully!\n";
+    const std::string ACCOUNT_UNFROZEN = "Account unfrozen successfully!\n";
 }
 
 namespace Info {
     const std::string GOODBYE = "\nGoodbye.\n";
     const std::string WELCOME = "\n========================================\n    Welcome to Bank Simulation\n========================================\n";
-    const std::string APP_TITLE = "Banking Management System";
+    const std::string APP_TITLE = "Banking Management System\n";
     const std::string LOGIN = "\n=== Login ===\n";
+    const std::string SIGNUP = "\n=== Signup ===\n";
     const std::string CURRENT_BALANCE = "Current Balance: Rs. ";
     const std::string ACCOUNT_NUMBER = "Your Account Number: ";
-    const std::string MINI_STATEMENT = "\n=== Mini Statement ===";
-    const std::string BANK_STATEMENT = "\n=== Bank Statement (All Transactions) ===";
-    const std::string ACCOUNT_DETAILS = "\n=== Account Details ===";
-    const std::string ALL_USERS = "\n=== All Users ===\n";
-    const std::string NO_USERS = "No users found in the system.";
-    const std::string NO_ACCOUNTS = "No accounts found in the system.";
-    const std::string SEPARATOR = "========================================";
+    const std::string MINI_STATEMENT = "\n=== Mini Statement ===\n";
+    const std::string BANK_STATEMENT = "\n=== Bank Statement (All Transactions) ===\n";
+    const std::string ACCOUNT_DETAILS = "\n=== Account Details ===\n";
+    const std::string ALL_USERS = "\n=== All Users ===";
+    const std::string NO_USERS = "No users found in the system.\n";
+    const std::string NO_ACCOUNTS = "No accounts found in the system.\n";
+    const std::string SEPARATOR = "\n========================================\n";
 }
 
 namespace Error {
-    const std::string INVALID_INPUT = "Invalid input! Please try again.";
-    const std::string INVALID_CHOICE = "Invalid choice! Please select from the menu.";
-    const std::string INVALID_AMOUNT = "Invalid amount! Amount must be positive.";
-    const std::string INVALID_EMAIL = "Invalid email format!";
-    const std::string INVALID_PHONE = "Invalid phone number!";
-    const std::string INVALID_CREDENTIALS = "Invalid email or password!";
-    const std::string INSUFFICIENT_BALANCE = "Insufficient balance!";
-    const std::string ACCOUNT_NOT_FOUND = "Account not found!";
-    const std::string ACCOUNT_FROZEN = "Account is frozen! Contact admin.";
-    const std::string ACCOUNT_INACTIVE = "Account is inactive!";
-    const std::string EMAIL_ALREADY_EXISTS = "Email already exists! Please use a different email.";
-    const std::string UNAUTHORIZED_ACCESS = "Unauthorized access!";
-    const std::string NO_TRANSACTIONS = "No transactions found.";
-    const std::string MINIMUM_DEPOSIT_REQUIRED = "Minimum deposit of Rs. 100 is required!";
-    const std::string MEMORY_ALLOCATION_FAILED = "Memory allocation failed! Please try again.";
+    const std::string INVALID_INPUT = "Invalid input! Please try again.\n";
+    const std::string INVALID_CHOICE = "Invalid choice! Please select from the menu.\n";
+    const std::string INVALID_AMOUNT = "Invalid amount! Amount must be positive.\n";
+    const std::string INVALID_EMAIL = "Invalid email format!\n";
+    const std::string INVALID_PHONE = "Invalid phone number!\n";
+    const std::string INVALID_CREDENTIALS = "Invalid email or password!\n";
+    const std::string INSUFFICIENT_BALANCE = "Insufficient balance!\n";
+    const std::string ACCOUNT_NOT_FOUND = "Account not found!\n";
+    const std::string ACCOUNT_FROZEN = "Account is frozen! Contact admin.\n";
+    const std::string ACCOUNT_INACTIVE = "Account is inactive!\n";
+    const std::string EMAIL_ALREADY_EXISTS = "Email already exists! Please use a different email.\n";
+    const std::string UNAUTHORIZED_ACCESS = "Unauthorized access!\n";
+    const std::string NO_TRANSACTIONS = "No transactions found.\n";
+    const std::string MINIMUM_DEPOSIT_REQUIRED = "Minimum deposit of Rs. 100 is required!\n";
+    const std::string MEMORY_ALLOCATION_FAILED = "Memory allocation failed! Please try again.\n";
 
-    const std::string PASSWORD_TOO_SHORT = "Password must be at least 8 characters!";
-    const std::string PASSWORD_NO_UPPERCASE = "Password must have atleast 1 uppercase letter!";
-    const std::string PASSWORD_NO_LOWERCASE = "Password must have atleast 1 lowercase letter!";
-    const std::string PASSWORD_NO_DIGIT = "Password must have atleast 1 digit!";
-    const std::string PASSWORD_NO_SPECIAL = "Password must have atleast 1 special character!";
+    const std::string PASSWORD_TOO_SHORT = "Password must be at least 8 characters!\n";
+    const std::string PASSWORD_NO_UPPERCASE = "Password must have atleast 1 uppercase letter!\n";
+    const std::string PASSWORD_NO_LOWERCASE = "Password must have atleast 1 lowercase letter!\n";
+    const std::string PASSWORD_NO_DIGIT = "Password must have atleast 1 digit!\n";
+    const std::string PASSWORD_NO_SPECIAL = "Password must have atleast 1 special character!\n";
 }
 
 #endif

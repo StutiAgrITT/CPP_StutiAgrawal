@@ -19,15 +19,7 @@ Account::~Account() {
 }
 
 bool Account::deposit(double amount) {
-    if (!_isActive) {
-        return false;
-    }
-
-    if (_isFrozen) {
-        return false;
-    }
-
-    if (amount <= 0) {
+    if (!_isActive || _isFrozen || amount <= 0) {
         return false;
     }
 
@@ -37,19 +29,7 @@ bool Account::deposit(double amount) {
 }
 
 bool Account::withdraw(double amount) {
-    if (!_isActive) {
-        return false;
-    }
-
-    if (_isFrozen) {
-        return false;
-    }
-
-    if (amount <= 0) {
-        return false;
-    }
-
-    if (amount > _balance) {
+    if (!_isActive || _isFrozen || amount <= 0 || amount > _balance) {
         return false;
     }
 
