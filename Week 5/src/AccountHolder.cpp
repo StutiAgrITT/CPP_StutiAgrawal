@@ -19,7 +19,3 @@ void AccountHolder::setAccountId(std::string accountId) {
 std::string AccountHolder::getAccountId() {
     return _accountId;
 }
-
-bool AccountHolder::hasAccount() {
-    return !(_accountId.empty());
-}

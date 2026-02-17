@@ -16,7 +16,6 @@ public:
 
     void setAccountId(std::string accountId);
     std::string getAccountId();
-    bool hasAccount();
 };
 
 #endif

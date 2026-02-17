@@ -93,7 +93,7 @@ void Application::handleSignup() {
         _logger->printMessage(Success::SIGNUP);
         if (role == ACCOUNT_HOLDER) {
             AccountHolder* holder = dynamic_cast<AccountHolder*>(newUser);
-            if (holder && holder->hasAccount()) {
+            if (holder) {
                 _logger->printMessage(Info::ACCOUNT_NUMBER + holder->getAccountId());
             }
         }
@@ -170,7 +170,7 @@ void Application::showAccountHolderMenu() {
 void Application::handleDeposit() {
     AccountHolder* holder = dynamic_cast<AccountHolder*>(_currentUser);
     
-    if (!holder || !holder->hasAccount()) {
+    if (!holder) {
         _logger->printError(Error::UNAUTHORIZED_ACCESS);
         return;
     }
@@ -207,7 +207,7 @@ void Application::handleDeposit() {
 void Application::handleWithdraw() {
     AccountHolder* holder = dynamic_cast<AccountHolder*>(_currentUser);
     
-    if (!holder || !holder->hasAccount()) {
+    if (!holder) {
         _logger->printError(Error::UNAUTHORIZED_ACCESS);
         return;
     }
@@ -244,7 +244,7 @@ void Application::handleWithdraw() {
 void Application::handleCheckBalance() {
     AccountHolder* holder = dynamic_cast<AccountHolder*>(_currentUser);
     
-    if (!holder || !holder->hasAccount()) {
+    if (!holder) {
         _logger->printError(Error::UNAUTHORIZED_ACCESS);
         return;
     }
@@ -262,7 +262,7 @@ void Application::handleCheckBalance() {
 void Application::handleMiniStatement() {
     AccountHolder* holder = dynamic_cast<AccountHolder*>(_currentUser);
     
-    if (!holder || !holder->hasAccount()) {
+    if (!holder) {
         _logger->printError(Error::UNAUTHORIZED_ACCESS);
         return;
     }
@@ -283,7 +283,7 @@ void Application::handleMiniStatement() {
 void Application::handleBankStatement() {
     AccountHolder* holder = dynamic_cast<AccountHolder*>(_currentUser);
     
-    if (!holder || !holder->hasAccount()) {
+    if (!holder) {
         _logger->printError(Error::UNAUTHORIZED_ACCESS);
         return;
     }
@@ -345,7 +345,7 @@ void Application::handleViewAllUsersAndAccounts() {
 
         if (user->getRole() == "Account Holder") {
             AccountHolder* holder = dynamic_cast<AccountHolder*>(user);
-            if (holder && holder->hasAccount()) {
+            if (holder) {
                 Account* account = _bank->getAccount(holder->getAccountId());
                 if (account) {
                     _logger->printMessage(Info::ACCOUNT_DETAILS);
