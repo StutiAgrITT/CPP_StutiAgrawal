@@ -31,8 +31,7 @@ double Transaction::getAmount() {
 }
 
 std::string Transaction::getDateTime() {
-    return 
-    _dateTime;
+    return _dateTime;
 }
 
 double Transaction::getBalanceAfter() {

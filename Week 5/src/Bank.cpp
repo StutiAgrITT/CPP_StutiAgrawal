@@ -33,15 +33,23 @@ User* Bank::signup(std::string name, std::string email, std::string phone,
     User* newUser = nullptr;
     
     if (role == ACCOUNT_HOLDER) {
-        newUser = new AccountHolder(userId, name, email, phone, password);
+        newUser = new(std::nothrow) AccountHolder(userId, name, email, phone, password);
+        if (!newUser) {
+            return nullptr;
+        }
         Account* newAccount = createAccount(userId, initialDeposit);
         if (newAccount) {
             AccountHolder* holder = dynamic_cast<AccountHolder*>(newUser);
             holder->setAccountId(newAccount->getAccountNumber());
         }
+        else {
+            delete newUser;
+            return nullptr;
+        }
     }
     else if (role == ADMIN) {
-        newUser = new Admin(userId, name, email, phone, password);
+        newUser = new(std::nothrow) Admin(userId, name, email, phone, password);
+        if (!newUser) return nullptr;
     }
     
     if (newUser) {
@@ -71,7 +79,8 @@ bool Bank::emailExists(std::string email) {
 Account* Bank::createAccount(std::string accountHolderId, double initialDeposit) {
     std::string accountNumber = generateAccountNumber();
     
-    Account* newAccount = new Account(accountNumber, accountHolderId, initialDeposit);
+    Account* newAccount = new(std::nothrow) Account(accountNumber, accountHolderId, initialDeposit);
+    if (!newAccount) return nullptr;
     _accounts.push_back(newAccount);
     
     return newAccount;

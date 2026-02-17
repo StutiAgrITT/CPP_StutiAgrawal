@@ -71,6 +71,7 @@ namespace Error {
     const std::string UNAUTHORIZED_ACCESS = "Unauthorized access!";
     const std::string NO_TRANSACTIONS = "No transactions found.";
     const std::string MINIMUM_DEPOSIT_REQUIRED = "Minimum deposit of Rs. 100 is required!";
+    const std::string MEMORY_ALLOCATION_FAILED = "Memory allocation failed! Please try again.";
 
     const std::string PASSWORD_TOO_SHORT = "Password must be at least 8 characters!";
     const std::string PASSWORD_NO_UPPERCASE = "Password must have atleast 1 uppercase letter!";

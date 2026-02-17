@@ -115,6 +115,7 @@ void Account::addTransaction(TransactionType type, double amount, double balance
     std::string transactionId = "TXN" + std::to_string(_transactions.size() + 1);
     std::string dateTime = utility->getCurrentDateTime();
     
-    Transaction* transaction = new Transaction(transactionId, type, amount, dateTime, balanceAfter);
+    Transaction* transaction = new(std::nothrow) Transaction(transactionId, type, amount, dateTime, balanceAfter);
+    if (!transaction) return;
     _transactions.push_back(transaction);
 }

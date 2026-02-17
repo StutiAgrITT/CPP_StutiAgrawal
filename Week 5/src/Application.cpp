@@ -99,7 +99,7 @@ void Application::handleSignup() {
         }
     }
     else {
-        _logger->printError(Error::INVALID_INPUT);
+        _logger->printError(Error::MEMORY_ALLOCATION_FAILED);
     }
 }
 
