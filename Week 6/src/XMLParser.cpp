@@ -7,7 +7,6 @@
 XMLParser::XMLParser() = default;
 XMLParser::~XMLParser() = default;
 
-
 void XMLParser::parse(const std::string& filePath) {
     tinyxml2::XMLDocument document;
 

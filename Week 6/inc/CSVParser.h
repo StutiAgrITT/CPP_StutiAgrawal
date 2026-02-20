@@ -2,6 +2,7 @@
 #define CSV_PARSER_H
 
 #include "Parser.h"
+#include "rapidcsv.h"
 
 class CSVParser : public Parser {
 public:
