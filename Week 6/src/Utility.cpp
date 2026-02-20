@@ -45,6 +45,7 @@ int Utility::getValidAge() {
         if (age <= Constants::MIN_AGE || age >= Constants::MAX_AGE) {
             _logger->printError(Error::INVALID_AGE);
             _logger->printMessage(Prompt::ENTER_AGE);
+            continue;
         }
         return age;
     }
@@ -113,6 +114,20 @@ char Utility::getValidGender() {
             continue;
         }
         std::cin.ignore();
+
+        gender = toupper(gender);
+        bool valid = false;
+        for (int genderIndex = 0; genderIndex < Constants::NUM_GENDERS; genderIndex++) {
+            if (Constants::VALID_GENDERS[genderIndex] == gender) {
+                valid = true;
+                break;
+            }
+        }
+        if (!valid) {
+            _logger->printError(Error::INVALID_GENDER);
+            _logger->printMessage(Prompt::ENTER_GENDER);
+            continue;
+        }
         return gender;
     }
 }

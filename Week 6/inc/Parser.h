@@ -1,3 +1,6 @@
+#ifndef PARSER_H
+#define PARSER_H
+
 #include "Logger.h"
 #include "Utility.h"
 #include <string>
@@ -16,7 +19,7 @@ public:
 
     virtual void parse(const std::string& filePath) = 0;
     virtual void save(const std::string& filePath) = 0;
-    
+
     void display();
     void create(const std::string& filePath);
 
@@ -28,3 +31,5 @@ public:
     void clearRecords();
     int getRecordCount() const;
 };
+
+#endif

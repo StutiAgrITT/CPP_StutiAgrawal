@@ -30,8 +30,8 @@ namespace Prompt {
     const std::string ENTER_FILENAME = "Enter filename (without extension): ";
     const std::string ENTER_NUM_RECORDS = "Enter number of records: ";
     const std::string ENTER_NAME = "Enter name: ";
-    const std::string ENTER_AGE = "Enter age ";
-    const std::string ENTER_GENDER = "Enter gender:  ";
+    const std::string ENTER_AGE = "Enter age: ";
+    const std::string ENTER_GENDER = "Enter gender: ";
     const std::string ENTER_CITY = "Enter your city: ";
     const std::string SELECT_FILE = "\nSelect file number: ";
     const std::string SELECT_RECORD = "Select record number: ";
@@ -61,6 +61,7 @@ namespace Error {
     const std::string FILE_OPEN_FAILED = "Could not open file!\n";
     const std::string FILE_WRITE_FAILED = "Could not write to file!\n";
     const std::string DIRECTORY_NOT_FOUND = "Data directory not found!\n";
+    const std::string FILE_ALREADY_EXISTS = "File already exists!\n";
 }
 
 namespace Info {

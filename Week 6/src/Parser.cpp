@@ -22,6 +22,7 @@ void Parser::display() {
         _logger->printMessage(Info::AGE + _records[recordIndex][Constants::FIELDS[1]] + Constants::NEWLINE);
         _logger->printMessage(Info::GENDER + _records[recordIndex][Constants::FIELDS[2]] + Constants::NEWLINE);
         _logger->printMessage(Info::CITY + _records[recordIndex][Constants::FIELDS[3]] + Constants::NEWLINE);
+        _logger->printMessage(Constants::NEWLINE);
     }
     _logger->printMessage(Info::SEPARATOR);
     _logger->printMessage(Info::TOTAL_RECORDS + std::to_string(_records.size()) + Constants::NEWLINE);

@@ -23,6 +23,11 @@ private:
     void handleParseAndDisplay();
     void handleDeleteFile();
 
+    void handleEditAddRecord();
+    void handleEditUpdateRecord();
+    void handleEditDeleteRecord();
+    void handleEditSaveChanges(std::string filepath, bool& editing);
+
     std::string selectFile();
     std::map<std::string, std::string> getUserInputForRecord();
 
