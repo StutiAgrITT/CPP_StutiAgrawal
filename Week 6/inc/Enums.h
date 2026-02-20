@@ -2,7 +2,7 @@
 #define ENUMS_H
 
 enum FileFormat {
-    JSON,
+    JSON = 1,
     CSV,
     XML
 };

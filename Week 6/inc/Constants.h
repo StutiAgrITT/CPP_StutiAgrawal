@@ -65,6 +65,8 @@ namespace Error {
 
 namespace Info {
     const std::string SEPARATOR = "========================================\n";
+    const std::string WELCOME = "Welcome to Parser Application!\n";
+    const std::string GOODBYE = "Goodbye!\n";
     const std::string PARSED_DATA_HEADER = "Parsed Data from: ";
     const std::string TOTAL_RECORDS = "Total Records: ";
     const std::string CURRENT_DATA = "\n=== Current Data ===\n";
