@@ -79,6 +79,7 @@ void Application::handleEditFile() {
         return;
     }
     FileFormat format = _fileManager->detectFormat(filePath);
+    if (_currentParser) delete _currentParser;
     _currentParser = _parserManager->getParser(format);
 
     _currentParser->parse(filePath);
@@ -86,7 +87,7 @@ void Application::handleEditFile() {
     bool editing = true;
 
     _logger->printMessage(Info::CURRENT_DATA);
-        _currentParser->display();
+    _currentParser->display();
 
     while (editing) {
         _logger->printMessage(Menu::EDIT);
