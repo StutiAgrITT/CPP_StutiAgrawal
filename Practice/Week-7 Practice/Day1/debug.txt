@@ -1,0 +1,36 @@
+1	#include <iostream>
+2	
+3	class Node {
+4	public:
+5	    int data;
+6	    Node* next;
+7	    Node(int x, Node* next = nullptr) : data(x), next(next) {}
+8	};
+9	
+10	int main() {
+The program is not being run.
+Temporary breakpoint 1 at 0x1209: file Logging.cpp, line 10.
+Starting program: /home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day1/a.out 
+
+Temporary breakpoint 1, main () at Logging.cpp:10
+10	int main() {
+5	    int data;
+6	    Node* next;
+7	    Node(int x, Node* next = nullptr) : data(x), next(next) {}
+8	};
+9	
+10	int main() {
+11	    Node a(1, NULL);
+12	    Node b(2, NULL);
+13	    std::cout << a.data << " " << a.next << '\n';
+14	    std::cout << b.data << " " << b.next << '\n';
+11	    Node a(1, NULL);
+12	    Node b(2, NULL);
+13	    std::cout << a.data << " " << a.next << '\n';
+14	    std::cout << b.data << " " << b.next << '\n';
+15	    return 0;
+16	}
+__libc_start_main (main=0x555555555209 <main()>, argc=1, argv=0x7fffffffde08, init=<optimized out>, fini=<optimized out>, rtld_fini=<optimized out>, stack_end=0x7fffffffddf8) at ../csu/libc-start.c:342
+342	../csu/libc-start.c: No such file or directory.
+[Inferior 1 (process 34723) exited normally]
+The program is not being run.
