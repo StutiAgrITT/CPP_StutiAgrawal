@@ -1,0 +1,5 @@
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day1/TestingBasics/build/CMakeFiles/rebuild_cache.dir
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day1/TestingBasics/build/CMakeFiles/edit_cache.dir
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day1/TestingBasics/build/CMakeFiles/test.dir
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day1/TestingBasics/build/CMakeFiles/runTests.dir
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day1/TestingBasics/build/CMakeFiles/calculator.dir
