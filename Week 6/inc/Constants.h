@@ -15,7 +15,9 @@ namespace Constants {
     const int MIN_AGE = 0;
     const int MAX_AGE = 120;
     const std::string JSON_KEY = "records";
+    const int JSON_INDENTATION = 4;
     const std::string COMMA = ",";
+    const std::string SPACE = " ";
     const std::string XML_ROOT = "records";
     const std::string XML_RECORD = "person";
 }
@@ -62,6 +64,14 @@ namespace Error {
     const std::string FILE_WRITE_FAILED = "Could not write to file!\n";
     const std::string DIRECTORY_NOT_FOUND = "Data directory not found!\n";
     const std::string FILE_ALREADY_EXISTS = "File already exists!\n";
+    const std::string MISSING_FIELD = "Missing field: ";
+    const std::string UNEXPECTED_FIELD = "Unexpected extra fields";
+    const std::string FIELD_COUNT_MISMATCH = "Field count mismatch: expected ";
+    const std::string FIELD_MISMATCH = "Field mismatch: expected ";
+    const std::string BUT_GOT = " but got ";
+    const std::string RECORD_PREFIX = "Record ";
+    const std::string RECORD_SUFFIX = ": ";
+    const std::string IN_ROW = " in row ";
 }
 
 namespace Info {

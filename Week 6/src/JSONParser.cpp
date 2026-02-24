@@ -23,8 +23,19 @@ void JSONParser::parse(const std::string& filePath) {
         }
 
         clearRecords();
+        
+        for (int recordIndex = 0; recordIndex < data[Constants::JSON_KEY].size(); recordIndex++) { 
+            nlohmann::json record = data[Constants::JSON_KEY][recordIndex];
 
-        for (nlohmann::json record : data[Constants::JSON_KEY]) {
+            for (int fieldIndex = 0; fieldIndex < Constants::NUM_FIELDS; fieldIndex++) {
+                if (!record.contains(Constants::FIELDS[fieldIndex])) {
+                    throw ParseException(Error::RECORD_PREFIX + std::to_string(recordIndex + 1) + Error::RECORD_SUFFIX + Error::MISSING_FIELD + Constants::FIELDS[fieldIndex]);
+                }
+            }
+            if (record.size() != Constants::NUM_FIELDS) {
+                throw ParseException(Error::RECORD_PREFIX + std::to_string(recordIndex + 1) + Error::RECORD_SUFFIX + Error::UNEXPECTED_FIELD);
+            }
+
             std::map<std::string, std::string> map;
             map[Constants::FIELDS[0]] = record[Constants::FIELDS[0]];
             map[Constants::FIELDS[1]] = std::to_string((int)record[Constants::FIELDS[1]]);
@@ -57,6 +68,6 @@ void JSONParser::save(const std::string& filePath) {
         throw FileException(Error::FILE_WRITE_FAILED);
     }
 
-    file << data.dump(4);
+    file << data.dump(Constants::JSON_INDENTATION);
     file.close();
 }

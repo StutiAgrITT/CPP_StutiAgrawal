@@ -8,12 +8,8 @@ Navigate to the folder where this file is present.
 `sudo apt update`
 `sudo apt install libtinyxml2-dev`
 
-### 3. Make directory for data files
-`mkdir data`
+### 3. Give permission to run script
+`chmod +x run.sh`
 
-### 4. Build the executable
-`mkdir bin` : Folder for executable file
-`g++ main.cpp src/*.cpp -o bin/main.out -I./inc -I./externals -ltinyxml2`
-
-### 5. Run the Program
-`./bin/main.out`
+### 4. Run the Program
+`./run.sh`

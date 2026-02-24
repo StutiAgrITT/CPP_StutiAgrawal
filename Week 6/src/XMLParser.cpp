@@ -25,6 +25,25 @@ void XMLParser::parse(const std::string& filePath) {
     tinyxml2::XMLElement* recordElement = root->FirstChildElement(Constants::XML_RECORD.c_str());
 
     while (recordElement) {
+        for (int fieldIndex = 0; fieldIndex < Constants::NUM_FIELDS; ++fieldIndex) {
+            if (!recordElement->FirstChildElement(Constants::FIELDS[fieldIndex].c_str())) {
+                throw ParseException(Error::MISSING_FIELD + Constants::FIELDS[fieldIndex]);
+            }
+        }
+        tinyxml2::XMLElement* child = recordElement->FirstChildElement();
+        while (child) {
+            bool isKnown = false;
+            for (int fieldIndex = 0; fieldIndex < Constants::NUM_FIELDS; fieldIndex++) {
+                if (std::string(child->Name()) == Constants::FIELDS[fieldIndex]) {
+                    isKnown = true;
+                    break;
+                }
+            }
+            if (!isKnown) {
+                throw ParseException(Error::UNEXPECTED_FIELD + Error::RECORD_SUFFIX + std::string(child->Name()));
+            }
+            child = child->NextSiblingElement();
+        }
         std::map<std::string, std::string> record;
 
         for (int fieldIndex = 0; fieldIndex < Constants::NUM_FIELDS; ++fieldIndex) {
