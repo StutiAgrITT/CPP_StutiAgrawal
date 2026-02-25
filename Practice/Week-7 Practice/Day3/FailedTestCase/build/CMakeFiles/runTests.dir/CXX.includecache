@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/calculator.h
+
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/FailedTestCase/tests/calculator_test.cpp
+iostream
+-
+calculator.h
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/FailedTestCase/tests/calculator.h
+gtest/gtest.h
+-
+

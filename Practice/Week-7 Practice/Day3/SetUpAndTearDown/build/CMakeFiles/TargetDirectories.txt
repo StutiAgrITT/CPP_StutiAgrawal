@@ -1,0 +1,5 @@
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/SetUpAndTearDown/build/CMakeFiles/rebuild_cache.dir
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/SetUpAndTearDown/build/CMakeFiles/edit_cache.dir
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/SetUpAndTearDown/build/CMakeFiles/test.dir
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/SetUpAndTearDown/build/CMakeFiles/runTests.dir
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/SetUpAndTearDown/build/CMakeFiles/stack.dir

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/sorter.h
+vector
+-
+
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/SharingInput/tests/sorterTest.cpp
+gtest/gtest.h
+-
+sorter.h
+-
+

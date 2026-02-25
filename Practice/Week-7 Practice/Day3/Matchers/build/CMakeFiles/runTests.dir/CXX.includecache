@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/utils.h
+vector
+-
+string
+-
+
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/Matchers/tests/utilsTest.cpp
+gtest/gtest.h
+-
+gmock/gmock.h
+-
+utils.h
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/Matchers/tests/utils.h
+

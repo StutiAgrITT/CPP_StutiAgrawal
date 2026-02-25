@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/stack.h
+vector
+-
+stdexcept
+-
+
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/SetUpAndTearDown/src/stack.cpp
+stack.h
+/home/stuti/Codes/CPP Training/Practice/Week-7 Practice/Day3/SetUpAndTearDown/src/stack.h
+
