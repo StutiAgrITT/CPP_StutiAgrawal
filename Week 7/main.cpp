@@ -6,7 +6,7 @@
 int main() {
     ILogger* logger = new Logger();
     IUtility* utility = new Utility(logger);
-    IBank* bank = new Bank(logger, utility);
+    IBank* bank = new Bank(utility);      // no logger
 
     Application app(bank, logger, utility);
     app.run();

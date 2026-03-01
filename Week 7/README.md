@@ -1,12 +1,21 @@
-## Steps to Run main.cpp
+## Steps to Run Tests
 
 ### 1. Open Terminal
 Navigate to the folder where this file is present.
 `cd path/to/folder`
 
-### 2. Build the executable
-`mkdir bin` : Folder for executable file
-`g++ main.cpp src/*.cpp -o bin/main.out -I./inc`
+### 2. Install Dependencies
+`sudo apt update`
+`sudo apt install libgtest-dev libgmock-dev`
 
-### 3. Run the Program
-`./bin/main.out`
+### 3. Build the Project
+`mkdir build`
+`cd build`
+`cmake ..`
+`make`
+
+### 4. Run the Tests
+`./banking_tests`
+
+### 5. Run with Detailed Output
+`./banking_tests --gtest_verbose`

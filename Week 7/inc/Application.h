@@ -16,28 +16,27 @@ private:
     IUtility* _utility;
     User* _currentUser;
     bool _isRunning;
-
     void showLoginMenu();
+    void showAccountHolderMenu();
+    void showAdminMenu();
+    void displayAccountInfo(Account* account);
+    void displayTransactions(std::vector<Transaction*> transactions);
+
+protected:
     void handleSignup();
     void handleLogin();
     void handleLogout();
-
-    void showAccountHolderMenu();
     void handleDeposit();
     void handleWithdraw();
     void handleCheckBalance();
     void handleMiniStatement();
     void handleBankStatement();
-
-    void showAdminMenu();
     void handleViewAllUsersAndAccounts();
     void handleFreezeAccount();
     void handleUnfreezeAccount();
     void handleCloseAccountAndDeleteUser();
-
-    void displayAccountInfo(Account* account);
-    void displayTransactions(std::vector<Transaction*> transactions);
-
+    void setCurrentUser(User* user) { _currentUser = user; }
+    
 public:
     Application(IBank* bank, ILogger* logger, IUtility* utility);
     ~Application();

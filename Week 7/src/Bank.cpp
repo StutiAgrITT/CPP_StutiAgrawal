@@ -1,9 +1,9 @@
 #include "Bank.h"
 #include "Logger.h"
 
-Bank::Bank(ILogger* logger, IUtility* utility) 
+Bank::Bank(IUtility* utility)
     : _nextAccountNumber(1001), _nextUserId(1),
-      _logger(logger), _utility(utility) {}
+      _utility(utility) {}
 
 Bank::~Bank() {
     for (Account* acc : _accounts) {

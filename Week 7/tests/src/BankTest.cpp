@@ -3,29 +3,25 @@
 #include "Bank.h"
 #include "AccountHolder.h"
 #include "Admin.h"
-#include "MockLogger.h"
 #include "MockUtility.h"
 
 class BankTest : public ::testing::Test {
 protected:
-    ::testing::NiceMock<MockLogger>* mockLogger;
     ::testing::NiceMock<MockUtility>* mockUtility;
     Bank* bank;
 
     void SetUp() override {
-        mockLogger  = new ::testing::NiceMock<MockLogger>();
         mockUtility = new ::testing::NiceMock<MockUtility>();
 
         ON_CALL(*mockUtility, getCurrentDateTime())
             .WillByDefault(::testing::Return("2026-01-01"));
 
-        bank = new Bank(mockLogger, mockUtility);
+        bank = new Bank(mockUtility);
     }
 
     void TearDown() override {
         delete bank;
         delete mockUtility;
-        delete mockLogger;
     }
 
     User* signupHolder(std::string email = "stuti@gmail.com") {
@@ -102,22 +98,19 @@ TEST_F(BankTest, SignupAdminReturnsCorrectRole) {
 
 class BankDuplicateEmailTest : public ::testing::TestWithParam<std::string> {
 protected:
-    ::testing::NiceMock<MockLogger>*  mockLogger;
     ::testing::NiceMock<MockUtility>* mockUtility;
     Bank* bank;
 
     void SetUp() override {
-        mockLogger  = new ::testing::NiceMock<MockLogger>();
         mockUtility = new ::testing::NiceMock<MockUtility>();
         ON_CALL(*mockUtility, getCurrentDateTime())
             .WillByDefault(::testing::Return("2026-01-01"));
-        bank = new Bank(mockLogger, mockUtility);
+        bank = new Bank(mockUtility);
     }
 
     void TearDown() override {
         delete bank;
         delete mockUtility;
-        delete mockLogger;
     }
 };
 
@@ -125,7 +118,7 @@ TEST_P(BankDuplicateEmailTest, DuplicateEmailReturnsNullptr) {
     bank->signup("Stuti Agrawal", GetParam(), "9876543210",
                  "Password@1", ACCOUNT_HOLDER, 500.0);
 
-    User* duplicate = bank->signup("Jane Doe", GetParam(), "9786756453",
+    User* duplicate = bank->signup("Shruti Agarwal", GetParam(), "9786756453",
                                    "Password@1", ACCOUNT_HOLDER, 500.0);
     EXPECT_EQ(duplicate, nullptr);
 }
@@ -133,7 +126,7 @@ TEST_P(BankDuplicateEmailTest, DuplicateEmailReturnsNullptr) {
 TEST_P(BankDuplicateEmailTest, DuplicateEmailDoesNotAddUser) {
     bank->signup("Stuti Agrawal", GetParam(), "9876543210",
                  "Password@1", ACCOUNT_HOLDER, 500.0);
-    bank->signup("Jane Doe", GetParam(), "9786756453",
+    bank->signup("Shruti Agarwal", GetParam(), "9786756453",
                  "Password@1", ACCOUNT_HOLDER, 500.0);
 
     EXPECT_EQ(bank->getAllUsers().size(), 1);
@@ -165,16 +158,14 @@ TEST_F(BankTest, EmailExistsIsCaseSensitive) {
 
 class BankLoginInvalidTest : public ::testing::TestWithParam<std::pair<std::string, std::string>> {
 protected:
-    ::testing::NiceMock<MockLogger>*  mockLogger;
     ::testing::NiceMock<MockUtility>* mockUtility;
     Bank* bank;
 
     void SetUp() override {
-        mockLogger  = new ::testing::NiceMock<MockLogger>();
         mockUtility = new ::testing::NiceMock<MockUtility>();
         ON_CALL(*mockUtility, getCurrentDateTime())
             .WillByDefault(::testing::Return("2026-01-01"));
-        bank = new Bank(mockLogger, mockUtility);
+        bank = new Bank(mockUtility);
 
         bank->signup("Stuti Agrawal", "stuti@gmail.com", "9876543210",
                      "Password@1", ACCOUNT_HOLDER, 500.0);
@@ -183,7 +174,6 @@ protected:
     void TearDown() override {
         delete bank;
         delete mockUtility;
-        delete mockLogger;
     }
 };
 
