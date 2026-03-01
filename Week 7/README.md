@@ -16,6 +16,3 @@ Navigate to the folder where this file is present.
 
 ### 4. Run the Tests
 `./banking_tests`
-
-### 5. Run with Detailed Output
-`./banking_tests --gtest_verbose`
