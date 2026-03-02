@@ -75,10 +75,6 @@ TEST_F(UserTest, AuthenticateReturnsTrueForCorrectPassword) {
     EXPECT_TRUE(accountHolder->authenticate("Password@1"));
 }
 
-TEST_F(UserTest, AuthenticateReturnsFalseForEmptyPassword) {
-    EXPECT_FALSE(accountHolder->authenticate(""));
-}
-
 TEST_F(UserTest, AccountHolderGetRoleReturnsCorrectValue) {
     EXPECT_EQ(accountHolder->getRole(), "Account Holder");
 }

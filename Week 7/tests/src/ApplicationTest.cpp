@@ -159,7 +159,8 @@ TEST_F(ApplicationTest, SignupCallsBankWithCorrectDetails) {
         .WillByDefault(::testing::Return(500.0));
     ON_CALL(*mockBank,emailExists(_))
         .WillByDefault(::testing::Return(false));
-    EXPECT_CALL(*mockBank,signup("Stuti Agrawal","stuti@gmail.com","9876543210","Password@1",ACCOUNT_HOLDER,500.0)).WillOnce(::testing::Return(fakeUser));
+    EXPECT_CALL(*mockBank,signup("Stuti Agrawal","stuti@gmail.com","9876543210","Password@1",ACCOUNT_HOLDER,500.0))
+        .WillOnce(::testing::Return(fakeUser));
     app->handleSignup();
 }
 
