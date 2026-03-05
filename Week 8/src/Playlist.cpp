@@ -1,0 +1,99 @@
+#include "Playlist.h"
+#include "Exceptions.h"
+#include <algorithm>
+
+Playlist::Playlist(const std::string& name)
+    : _name(name), _currentIndex(0) {}
+
+void Playlist::addSong(const Song& song) {
+    _songs.push_back(song);
+}
+
+bool Playlist::removeSong(int index) {
+    if (index < 0 || index >= static_cast<int>(_songs.size())) {
+        return false;
+    }
+    _songs.erase(_songs.begin() + index);
+
+    if (_currentIndex >= static_cast<int>(_songs.size())) {
+        _currentIndex = static_cast<int>(_songs.size()) - 1;
+    }
+    if (_currentIndex < 0) {
+        _currentIndex = 0;
+    }
+    return true;
+}
+
+bool Playlist::moveSongUp(int index) {
+    if (index <= 0 || index >= static_cast<int>(_songs.size())) {
+        return false;
+    }
+    auto it = _songs.begin() + index;
+    std::iter_swap(it, it - 1);
+
+    if (_currentIndex == index)          _currentIndex--;
+    else if (_currentIndex == index - 1) _currentIndex++;
+
+    return true;
+}
+
+bool Playlist::moveSongDown(int index) {
+    if (index < 0 || index >= static_cast<int>(_songs.size()) - 1) {
+        return false;
+    }
+    auto it = _songs.begin() + index;
+    std::iter_swap(it, it + 1);
+
+    if (_currentIndex == index)          _currentIndex++;
+    else if (_currentIndex == index + 1) _currentIndex--;
+
+    return true;
+}
+
+bool Playlist::next() {
+    if (_songs.empty()) return false;
+    if (_currentIndex >= static_cast<int>(_songs.size()) - 1) return false;
+    _currentIndex++;
+    return true;
+}
+
+bool Playlist::previous() {
+    if (_songs.empty()) return false;
+    if (_currentIndex <= 0) return false;
+    _currentIndex--;
+    return true;
+}
+
+Song* Playlist::getCurrentSong() {
+    if (_songs.empty() || _currentIndex < 0 ||
+        _currentIndex >= static_cast<int>(_songs.size())) {
+        return nullptr;
+    }
+    return &_songs[_currentIndex];
+}
+
+int Playlist::getCurrentIndex() const {
+    return _currentIndex;
+}
+
+const std::vector<Song>& Playlist::getSongs() const {
+    return _songs;
+}
+
+std::string Playlist::getName() const {
+    return _name;
+}
+
+int Playlist::getSongCount() const {
+    return static_cast<int>(_songs.size());
+}
+
+bool Playlist::hasSongs() const {
+    return !_songs.empty();
+}
+
+void Playlist::setCurrentIndex(int index) {
+    if (index >= 0 && index < static_cast<int>(_songs.size())) {
+        _currentIndex = index;
+    }
+}
