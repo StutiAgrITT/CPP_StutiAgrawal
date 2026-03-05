@@ -1,4 +1,4 @@
-## Steps to run program
+## Steps to run Program/Tests
 
 ### 1. Open Terminal
 Navigate to the folder where this file is present.
@@ -7,12 +7,15 @@ Navigate to the folder where this file is present.
 ### 2. Create folder for playlists
 `mkdir data`
 
-### 2. Build the Project
+### 3. Build the Project
 `mkdir build`
 `cd build`
 `cmake ..`
 `make`
-
-### 3. Run the Tests
 `cd ..`
+
+### 4. Run the Program
 `./build/playlist_app`
+
+### 5. Run the Yests
+`./build/playlist_tests`

@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Constants.h"
 #include "Exceptions.h"
+#include "Enums.h"
 #include <iostream>
 
 Application::Application(PlaylistManager* manager, IAudioPlayer* audioPlayer,
@@ -25,19 +26,19 @@ void Application::showMainMenu() {
 
     try {
         switch (choice) {
-        case 1:
+        case MAIN_CREATE_PLAYLIST:
             handleCreatePlaylist();
             break;
-        case 2:
+        case MAIN_DELETE_PLAYLIST:
             handleDeletePlaylist();
             break;
-        case 3:
+        case MAIN_SELECT_PLAYLIST:
             handleSelectPlaylist();
             break;
-        case 4:
+        case MAIN_VIEW_PLAYLISTS:
             handleViewAllPlaylists();
             break;
-        case 5:
+        case MAIN_EXIT:
             _audioPlayer->stop();
             _logger->printMessage(Info::GOODBYE);
             _isRunning = false;
@@ -63,22 +64,22 @@ void Application::showPlaylistMenu() {
 
         try {
             switch (choice) {
-            case 1:
+            case PLAYLIST_ADD_SONG                                                          :
                 handleAddSong();
                 break;
-            case 2:
+            case PLAYLIST_REMOVE_SONG:
                 handleRemoveSong();
                 break;
-            case 3:
+            case PLAYLIST_MOVE_UP:
                 handleMoveSongUp();
                 break;
-            case 4:
+            case PLAYLIST_MOVE_DOWN:
                 handleMoveSongDown();
                 break;
-            case 5:
+            case PLAYLIST_PLAY:
                 handlePlay(); 
                 break;
-            case 6:
+            case PLAYLIST_BACK:
                 _audioPlayer->stop();
                 inPlaylistMenu = false;
                 break;
@@ -101,20 +102,20 @@ void Application::showPlayerMenu() {
 
         try {
             switch (choice) {
-            case 1:
+            case PLAYER_PAUSE_RESUME:
                 handlePauseResume();
                 break;
-            case 2:
+            case PLAYER_NEXT:
                 handleNext();
                 break;
-            case 3:
+            case PLAYER_PREVIOUS:
                 handlePrevious();
                 break;
-            case 4:
+            case PLAYER_STOP:
                 handleStop();
                 inPlayerMenu = false;
                 break;
-            case 5:
+            case PLAYER_BACK:
                 inPlayerMenu = false;
                 break;
             default:
@@ -201,9 +202,9 @@ void Application::handleViewAllPlaylists() {
     int index = 1;
     for (const auto& pair : playlists) {
         _logger->printMessage(std::to_string(index) + Info::COLON_SPACE +
-                              pair.first + Info::PLAYLIST_DISPLAY_START +
-                              std::to_string(pair.second.getSongCount()) +
-                              Info::PLAYLISTS_DISPLAY_END);
+            pair.first + Info::PLAYLIST_DISPLAY_START +
+            std::to_string(pair.second.getSongCount()) +
+            Info::PLAYLISTS_DISPLAY_END);
         index++;
     }
 }
