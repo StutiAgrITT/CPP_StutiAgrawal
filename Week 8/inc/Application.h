@@ -36,7 +36,6 @@ private:
     void handlePrevious();
     void handleStop();
 
-    void checkAutoAdvance();
     void displayNowPlaying();
     void displayPlaylist(Playlist* playlist);
     void displayLibrary();
