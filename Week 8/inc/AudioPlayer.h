@@ -9,8 +9,8 @@ private:
     sf::Music _music;
 
 public:
-    AudioPlayer()  = default;
-    ~AudioPlayer() = default;
+    AudioPlayer() = default;
+    ~AudioPlayer() override = default;
 
     bool play(const std::string& filePath) override;
     void pause() override;

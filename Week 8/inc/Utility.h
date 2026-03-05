@@ -9,7 +9,7 @@ private:
     ILogger* _logger;
 public: 
     Utility(ILogger* logger);
-    ~Utility() = default;
+    ~Utility() override = default;
     int getValidInteger() override;
     std::string getValidString() override;
     std::string getValidFilename() override;

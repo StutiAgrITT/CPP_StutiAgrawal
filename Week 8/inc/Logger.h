@@ -7,7 +7,7 @@
 class Logger : public ILogger {
 public:
     Logger() = default;
-    ~Logger() = default;
+    ~Logger() override = default;
     void printMessage(const std::string& message) override;
     void printError(const std::string& error) override;
 };

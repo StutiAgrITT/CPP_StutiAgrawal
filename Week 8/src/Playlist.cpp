@@ -31,7 +31,7 @@ bool Playlist::moveSongUp(int index) {
     auto it = _songs.begin() + index;
     std::iter_swap(it, it - 1);
 
-    if (_currentIndex == index)          _currentIndex--;
+    if (_currentIndex == index) _currentIndex--;
     else if (_currentIndex == index - 1) _currentIndex++;
 
     return true;
@@ -44,7 +44,7 @@ bool Playlist::moveSongDown(int index) {
     auto it = _songs.begin() + index;
     std::iter_swap(it, it + 1);
 
-    if (_currentIndex == index)          _currentIndex++;
+    if (_currentIndex == index) _currentIndex++;
     else if (_currentIndex == index + 1) _currentIndex--;
 
     return true;
@@ -52,15 +52,13 @@ bool Playlist::moveSongDown(int index) {
 
 bool Playlist::next() {
     if (_songs.empty()) return false;
-    if (_currentIndex >= static_cast<int>(_songs.size()) - 1) return false;
-    _currentIndex++;
+    _currentIndex = (_currentIndex + 1) % static_cast<int>(_songs.size());
     return true;
 }
 
 bool Playlist::previous() {
     if (_songs.empty()) return false;
-    if (_currentIndex <= 0) return false;
-    _currentIndex--;
+    _currentIndex = (_currentIndex - 1 + static_cast<int>(_songs.size())) % static_cast<int>(_songs.size());
     return true;
 }
 

@@ -25,7 +25,7 @@ void Application::showMainMenu() {
 
     try {
         switch (choice) {
-        case 1: 
+        case 1:
             handleCreatePlaylist();
             break;
         case 2:
@@ -75,9 +75,10 @@ void Application::showPlaylistMenu() {
                 handleMoveSongDown();
                 break;
             case 5:
-                handlePlay();
+                handlePlay(); 
                 break;
             case 6:
+                _audioPlayer->stop();
                 inPlaylistMenu = false;
                 break;
             default:
@@ -115,7 +116,8 @@ void Application::showPlayerMenu() {
             case 5:
                 inPlayerMenu = false;
                 break;
-            default: _logger->printError(Error::INVALID_CHOICE);
+            default:
+                _logger->printError(Error::INVALID_CHOICE);
             }
         }
         catch (std::exception& e) {
@@ -236,12 +238,14 @@ void Application::handleRemoveSong() {
     _logger->printMessage(Prompt::SELECT_SONG);
     int choice = _utility->getValidInteger();
 
-    if (_currentPlaylist->removeSong(choice - 1)) {
-        _manager->savePlaylist(_currentPlaylist->getName());
-        _logger->printMessage(Success::SONG_REMOVED);
-    } else {
+    if (choice < 1 || choice > _currentPlaylist->getSongCount()) {
         _logger->printError(Error::INVALID_INDEX);
+        return;
     }
+
+    _currentPlaylist->removeSong(choice - 1);
+    _manager->savePlaylist(_currentPlaylist->getName());
+    _logger->printMessage(Success::SONG_REMOVED);
 }
 
 void Application::handleMoveSongUp() {
@@ -254,11 +258,16 @@ void Application::handleMoveSongUp() {
     _logger->printMessage(Prompt::SELECT_SONG);
     int choice = _utility->getValidInteger();
 
-    if (_currentPlaylist->moveSongUp(choice - 1)) {
+    if (choice < 1 || choice > _currentPlaylist->getSongCount()) {
+        _logger->printError(Error::INVALID_INDEX);
+        return;
+    }
+
+    if (!_currentPlaylist->moveSongUp(choice - 1)) {
+        _logger->printError(Error::CANNOT_MOVE_UP);
+    } else {
         _manager->savePlaylist(_currentPlaylist->getName());
         _logger->printMessage(Success::SONG_MOVED_UP);
-    } else {
-        _logger->printError(Error::CANNOT_MOVE_UP);
     }
 }
 
@@ -272,11 +281,16 @@ void Application::handleMoveSongDown() {
     _logger->printMessage(Prompt::SELECT_SONG);
     int choice = _utility->getValidInteger();
 
-    if (_currentPlaylist->moveSongDown(choice - 1)) {
+    if (choice < 1 || choice > _currentPlaylist->getSongCount()) {
+        _logger->printError(Error::INVALID_INDEX);
+        return;
+    }
+
+    if (!_currentPlaylist->moveSongDown(choice - 1)) {
+        _logger->printError(Error::CANNOT_MOVE_DOWN);
+    } else {
         _manager->savePlaylist(_currentPlaylist->getName());
         _logger->printMessage(Success::SONG_MOVED_DOWN);
-    } else {
-        _logger->printError(Error::CANNOT_MOVE_DOWN);
     }
 }
 
