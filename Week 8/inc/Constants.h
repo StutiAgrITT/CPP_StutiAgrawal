@@ -89,6 +89,8 @@ namespace Info {
     const std::string LIBRARY_HEADER = "\n=== Song Library ===\n";
     const std::string PLAYLIST_HEADER = "\n=== Playlist: ";
     const std::string PLAYLISTS_HEADER = "\n=== All Playlists ===\n";
+    const std::string PLAYLIST_DISPLAY_START = " (";
+    const std::string PLAYLISTS_DISPLAY_END = " songs)\n";
     const std::string NO_SONG_PLAYING = "No song currently selected.\n";
     const std::string NEWLINE = "\n";
     const std::string COLON_SPACE = ": ";

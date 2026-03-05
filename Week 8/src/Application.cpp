@@ -200,9 +200,9 @@ void Application::handleViewAllPlaylists() {
     int index = 1;
     for (const auto& pair : playlists) {
         _logger->printMessage(std::to_string(index) + Info::COLON_SPACE +
-                              pair.first + " (" +
+                              pair.first + Info::PLAYLIST_DISPLAY_START +
                               std::to_string(pair.second.getSongCount()) +
-                              " songs)\n");
+                              Info::PLAYLISTS_DISPLAY_END);
         index++;
     }
 }
@@ -218,7 +218,7 @@ void Application::handleAddSong() {
     _logger->printMessage(Prompt::SELECT_SONG);
     int choice = _utility->getValidInteger();
 
-    if (choice < 1 || choice > static_cast<int>(library.size())) {
+    if (choice < 1 || choice > (library.size())) {
         _logger->printError(Error::INVALID_INDEX);
         return;
     }
@@ -364,7 +364,7 @@ void Application::displayPlaylist(Playlist* playlist) {
     }
 
     const auto& songs = playlist->getSongs();
-    for (int i = 0; i < static_cast<int>(songs.size()); i++) {
+    for (int i = 0; i < (songs.size()); i++) {
         std::string line = std::to_string(i + 1) + Info::COLON_SPACE +
                            songs[i].getTitle();
 
@@ -379,7 +379,7 @@ void Application::displayLibrary() {
     const auto& library = _manager->getSongLibrary();
     _logger->printMessage(Info::LIBRARY_HEADER);
 
-    for (int i = 0; i < static_cast<int>(library.size()); i++) {
+    for (int i = 0; i < (library.size()); i++) {
         _logger->printMessage(std::to_string(i + 1) + Info::COLON_SPACE +
                               library[i].getTitle() + Info::NEWLINE);
     }

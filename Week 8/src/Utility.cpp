@@ -31,7 +31,7 @@ std::string Utility::getValidString() {
     std::getline(std::cin, input);
 
     int start = input.find_first_not_of(" \t\n");
-    if (start == static_cast<int>(std::string::npos)) return "";
+    if (start == std::string::npos) return "";
 
     int end = input.find_last_not_of(" \t\n");
     return input.substr(start, end - start + 1);

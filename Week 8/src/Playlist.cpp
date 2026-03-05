@@ -10,13 +10,13 @@ void Playlist::addSong(const Song& song) {
 }
 
 bool Playlist::removeSong(int index) {
-    if (index < 0 || index >= static_cast<int>(_songs.size())) {
+    if (index < 0 || index >= (_songs.size())) {
         return false;
     }
     _songs.erase(_songs.begin() + index);
 
-    if (_currentIndex >= static_cast<int>(_songs.size())) {
-        _currentIndex = static_cast<int>(_songs.size()) - 1;
+    if (_currentIndex >= (_songs.size())) {
+        _currentIndex = (_songs.size()) - 1;
     }
     if (_currentIndex < 0) {
         _currentIndex = 0;
@@ -25,7 +25,7 @@ bool Playlist::removeSong(int index) {
 }
 
 bool Playlist::moveSongUp(int index) {
-    if (index <= 0 || index >= static_cast<int>(_songs.size())) {
+    if (index <= 0 || index >= (_songs.size())) {
         return false;
     }
     auto it = _songs.begin() + index;
@@ -38,7 +38,7 @@ bool Playlist::moveSongUp(int index) {
 }
 
 bool Playlist::moveSongDown(int index) {
-    if (index < 0 || index >= static_cast<int>(_songs.size()) - 1) {
+    if (index < 0 || index >= (_songs.size()) - 1) {
         return false;
     }
     auto it = _songs.begin() + index;
@@ -52,19 +52,19 @@ bool Playlist::moveSongDown(int index) {
 
 bool Playlist::next() {
     if (_songs.empty()) return false;
-    _currentIndex = (_currentIndex + 1) % static_cast<int>(_songs.size());
+    _currentIndex = (_currentIndex + 1) % (_songs.size());
     return true;
 }
 
 bool Playlist::previous() {
     if (_songs.empty()) return false;
-    _currentIndex = (_currentIndex - 1 + static_cast<int>(_songs.size())) % static_cast<int>(_songs.size());
+    _currentIndex = (_currentIndex - 1 + (_songs.size())) % (_songs.size());
     return true;
 }
 
 Song* Playlist::getCurrentSong() {
     if (_songs.empty() || _currentIndex < 0 ||
-        _currentIndex >= static_cast<int>(_songs.size())) {
+        _currentIndex >= (_songs.size())) {
         return nullptr;
     }
     return &_songs[_currentIndex];
@@ -83,7 +83,7 @@ std::string Playlist::getName() const {
 }
 
 int Playlist::getSongCount() const {
-    return static_cast<int>(_songs.size());
+    return (_songs.size());
 }
 
 bool Playlist::hasSongs() const {
@@ -91,7 +91,7 @@ bool Playlist::hasSongs() const {
 }
 
 void Playlist::setCurrentIndex(int index) {
-    if (index >= 0 && index < static_cast<int>(_songs.size())) {
+    if (index >= 0 && index < (_songs.size())) {
         _currentIndex = index;
     }
 }
