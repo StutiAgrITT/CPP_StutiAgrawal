@@ -28,6 +28,8 @@ public:
     std::string getName() const;
     int getSongCount() const;
     bool hasSongs() const;
+    bool hasSong(const Song& song) const;
+    void clearSongs();
     void setCurrentIndex(int index);
 };
 

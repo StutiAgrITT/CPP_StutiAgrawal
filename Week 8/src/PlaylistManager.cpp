@@ -141,3 +141,39 @@ void PlaylistManager::loadAllPlaylists() {
     }
     closedir(dir);
 }
+
+void PlaylistManager::refreshSongsFromLibrary(const std::string& name) {
+    loadLibrary(Path::SONGS_DIR);
+
+    Playlist* playlist = getPlaylist(name);
+    if (!playlist) return;
+
+    std::string filePath = Path::DATA_DIR + name + Extensions::TXT;
+    std::ifstream file(filePath);
+    if (!file) return;
+
+    std::vector<std::string> savedFilenames;
+    std::string filename;
+    while (std::getline(file, filename)) {
+        if (!filename.empty()) savedFilenames.push_back(filename);
+    }
+    file.close();
+
+    playlist->clearSongs();
+    for (const std::string& savedName : savedFilenames) {
+        auto it = std::find_if(_songLibrary.begin(), _songLibrary.end(),
+            [&savedName](const Song& song) {
+                std::string path = song.getFilePath();
+                size_t lastSlash = path.find_last_of('/');
+                std::string libFilename = (lastSlash != std::string::npos)
+                                            ? path.substr(lastSlash + 1)
+                                            : path;
+                return libFilename == savedName;
+            });
+        if (it != _songLibrary.end()) {
+            playlist->addSong(*it);
+        }
+    }
+
+    savePlaylist(name);
+}

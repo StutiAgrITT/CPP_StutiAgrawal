@@ -56,6 +56,7 @@ void Application::showPlaylistMenu() {
 
     bool inPlaylistMenu = true;
     while (inPlaylistMenu) {
+        _manager->refreshSongsFromLibrary(_currentPlaylist->getName());
         displayPlaylist(_currentPlaylist);
         _logger->printMessage(Menu::PLAYLIST);
         int choice = _utility->getValidInteger();
@@ -214,18 +215,38 @@ void Application::handleAddSong() {
         return;
     }
 
-    displayLibrary();
-    _logger->printMessage(Prompt::SELECT_SONG);
-    int choice = _utility->getValidInteger();
+    bool adding = true;
+    while (adding) {
+        std::vector<const Song*> available;
+        for (const Song& song : library) {
+            if (!_currentPlaylist->hasSong(song)) {
+                available.push_back(&song);
+            }
+        }
+        if (available.empty()) {
+            _logger->printMessage(Error::ALL_SONGS_ADDED);
+            return;
+        }
+        _logger->printMessage(Info::LIBRARY_HEADER);
+        for (int i = 0; i < (available.size()); i++) {
+            _logger->printMessage(std::to_string(i + 1) + Info::COLON_SPACE +
+                                  available[i]->getTitle() + Info::NEWLINE);
+        }
+        _logger->printMessage(Prompt::SELECT_SONG_OR_DONE);
+        int choice = _utility->getValidInteger();
 
-    if (choice < 1 || choice > (library.size())) {
-        _logger->printError(Error::INVALID_INDEX);
-        return;
+        if (choice == 0) {
+            adding = false;
+            return;
+        }
+        if (choice < 1 || choice > (available.size())) {
+            _logger->printError(Error::INVALID_INDEX);
+            continue;
+        }
+        _currentPlaylist->addSong(*available[choice - 1]);
+        _manager->savePlaylist(_currentPlaylist->getName());
+        _logger->printMessage(Success::SONG_ADDED);
     }
-
-    _currentPlaylist->addSong(library[choice - 1]);
-    _manager->savePlaylist(_currentPlaylist->getName());
-    _logger->printMessage(Success::SONG_ADDED);
 }
 
 void Application::handleRemoveSong() {
@@ -265,7 +286,8 @@ void Application::handleMoveSongUp() {
 
     if (!_currentPlaylist->moveSongUp(choice - 1)) {
         _logger->printError(Error::CANNOT_MOVE_UP);
-    } else {
+    }
+    else {
         _manager->savePlaylist(_currentPlaylist->getName());
         _logger->printMessage(Success::SONG_MOVED_UP);
     }
@@ -288,7 +310,8 @@ void Application::handleMoveSongDown() {
 
     if (!_currentPlaylist->moveSongDown(choice - 1)) {
         _logger->printError(Error::CANNOT_MOVE_DOWN);
-    } else {
+    }
+    else {
         _manager->savePlaylist(_currentPlaylist->getName());
         _logger->printMessage(Success::SONG_MOVED_DOWN);
     }
@@ -300,6 +323,7 @@ void Application::handlePlay() {
         return;
     }
 
+    _currentPlaylist->setCurrentIndex(0);
     Song* song = _currentPlaylist->getCurrentSong();
     if (!song) return;
 
@@ -314,7 +338,8 @@ void Application::handlePlay() {
 void Application::handlePauseResume() {
     if (_audioPlayer->isPlaying()) {
         _audioPlayer->pause();
-    } else if (_audioPlayer->isPaused()) {
+    }
+    else if (_audioPlayer->isPaused()) {
         _audioPlayer->resume();
     }
 }
@@ -372,15 +397,5 @@ void Application::displayPlaylist(Playlist* playlist) {
             line += Info::CURRENT_MARKER;
         }
         _logger->printMessage(line + Info::NEWLINE);
-    }
-}
-
-void Application::displayLibrary() {
-    const auto& library = _manager->getSongLibrary();
-    _logger->printMessage(Info::LIBRARY_HEADER);
-
-    for (int i = 0; i < (library.size()); i++) {
-        _logger->printMessage(std::to_string(i + 1) + Info::COLON_SPACE +
-                              library[i].getTitle() + Info::NEWLINE);
     }
 }

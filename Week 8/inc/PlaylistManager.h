@@ -31,6 +31,7 @@ public:
     void savePlaylist(const std::string& name);
     void loadPlaylist(const std::string& name);
     void loadAllPlaylists();
+    void refreshSongsFromLibrary(const std::string& name);
 };
 
 #endif

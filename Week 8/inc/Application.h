@@ -38,7 +38,6 @@ private:
 
     void displayNowPlaying();
     void displayPlaylist(Playlist* playlist);
-    void displayLibrary();
 
 public:
     Application(PlaylistManager* manager, IAudioPlayer* audioPlayer,

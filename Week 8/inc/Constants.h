@@ -47,6 +47,7 @@ namespace Prompt {
     const std::string ENTER_PLAYLIST_NAME = "Enter playlist name: ";
     const std::string SELECT_PLAYLIST = "Select playlist number: ";
     const std::string SELECT_SONG = "Select song number: ";
+    const std::string SELECT_SONG_OR_DONE = "Select song number (0 to stop adding): ";
 }
 
 namespace Success {
@@ -75,6 +76,7 @@ namespace Error {
     const std::string FILE_OPEN_FAILED = "Failed to open file!\n";
     const std::string FILE_WRITE_FAILED = "Failed to write file!\n";
     const std::string INVALID_NAME = "Name cannot be empty!\n";
+    const std::string ALL_SONGS_ADDED = "All songs from library are already in this playlist!\n";
 }
 
 namespace Info {
