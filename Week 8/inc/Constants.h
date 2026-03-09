@@ -3,6 +3,11 @@
 
 #include <string>
 
+namespace Constants {
+    const int EXTENSION_SIZE = 4;
+    const char FORWARD_SLASH = '/';
+}
+
 namespace Path {
     const std::string SONGS_DIR = "songs/";
     const std::string DATA_DIR  = "data/";

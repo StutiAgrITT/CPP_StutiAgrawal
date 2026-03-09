@@ -3,7 +3,6 @@
 #include "Exceptions.h"
 #include <algorithm>
 #include <fstream>
-#include <sstream>
 #include <dirent.h>
 
 PlaylistManager::PlaylistManager(ILogger* logger) : _logger(logger) {}
@@ -20,8 +19,8 @@ void PlaylistManager::loadLibrary(const std::string& songsDir) {
     while ((entry = readdir(dir)) != nullptr) {
         std::string filename = entry->d_name;
 
-        if (filename.size() > 4 &&
-            filename.substr(filename.size() - 4) == Extensions::OGG) {
+        if (filename.size() > Constants::EXTENSION_SIZE &&
+            filename.substr(filename.size() - Constants::EXTENSION_SIZE) == Extensions::OGG) {
             filenames.push_back(filename);
         }
     }
@@ -32,7 +31,7 @@ void PlaylistManager::loadLibrary(const std::string& songsDir) {
     std::transform(filenames.begin(), filenames.end(),
                    std::back_inserter(_songLibrary),
                    [&songsDir](const std::string& filename) {
-                       std::string title = filename.substr(0, filename.size() - 4);
+                       std::string title = filename.substr(0, filename.size() - Constants::EXTENSION_SIZE);
                        return Song(title, songsDir + filename);
                    });
 }
@@ -81,11 +80,10 @@ void PlaylistManager::savePlaylist(const std::string& name) {
 
     for (const Song& song : playlist->getSongs()) {
         std::string path = song.getFilePath();
-        size_t lastSlash = path.find_last_of('/');
+        int lastSlash = path.find_last_of(Constants::FORWARD_SLASH);
         std::string filename = (lastSlash != std::string::npos)
-                               ? path.substr(lastSlash + 1)
-                               : path;
-        file << filename << "\n";
+                               ? path.substr(lastSlash + 1) : path;
+        file << filename << Info::NEWLINE;
     }
     file.close();
 }
@@ -108,10 +106,9 @@ void PlaylistManager::loadPlaylist(const std::string& name) {
         auto it = std::find_if(_songLibrary.begin(), _songLibrary.end(),
                                [&filename](const Song& song) {
                                    std::string path = song.getFilePath();
-                                   size_t lastSlash = path.find_last_of('/');
+                                   int lastSlash = path.find_last_of(Constants::FORWARD_SLASH);
                                    std::string libFilename = (lastSlash != std::string::npos)
-                                                             ? path.substr(lastSlash + 1)
-                                                             : path;
+                                                             ? path.substr(lastSlash + 1) : path;
                                    return libFilename == filename;
                                });
 
@@ -130,12 +127,14 @@ void PlaylistManager::loadAllPlaylists() {
     while ((entry = readdir(dir)) != nullptr) {
         std::string filename = entry->d_name;
 
-        if (filename.size() > 4 &&
-            filename.substr(filename.size() - 4) == Extensions::TXT) {
-            std::string name = filename.substr(0, filename.size() - 4);
+        if (filename.size() > Constants::EXTENSION_SIZE &&
+            filename.substr(filename.size() - Constants::EXTENSION_SIZE) == Extensions::TXT) {
+            std::string name = filename.substr(0, filename.size() - Constants::EXTENSION_SIZE);
             try {
                 loadPlaylist(name);
-            } catch (...) {
+            }
+            catch (std::exception& e) {
+                _logger->printError(e.what());
             }
         }
     }
@@ -164,10 +163,9 @@ void PlaylistManager::refreshSongsFromLibrary(const std::string& name) {
         auto it = std::find_if(_songLibrary.begin(), _songLibrary.end(),
             [&savedName](const Song& song) {
                 std::string path = song.getFilePath();
-                size_t lastSlash = path.find_last_of('/');
+                int lastSlash = path.find_last_of(Constants::FORWARD_SLASH);
                 std::string libFilename = (lastSlash != std::string::npos)
-                                            ? path.substr(lastSlash + 1)
-                                            : path;
+                                            ? path.substr(lastSlash + 1) : path;
                 return libFilename == savedName;
             });
         if (it != _songLibrary.end()) {

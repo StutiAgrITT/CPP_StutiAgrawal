@@ -63,8 +63,7 @@ bool Playlist::previous() {
 }
 
 Song* Playlist::getCurrentSong() {
-    if (_songs.empty() || _currentIndex < 0 ||
-        _currentIndex >= _songs.size()) {
+    if (_songs.empty() || _currentIndex < 0 || _currentIndex >= _songs.size()) {
         return nullptr;
     }
     return &_songs[_currentIndex];

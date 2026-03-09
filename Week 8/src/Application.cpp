@@ -229,9 +229,9 @@ void Application::handleAddSong() {
             return;
         }
         _logger->printMessage(Info::LIBRARY_HEADER);
-        for (int i = 0; i < (available.size()); i++) {
-            _logger->printMessage(std::to_string(i + 1) + Info::COLON_SPACE +
-                                  available[i]->getTitle() + Info::NEWLINE);
+        for (int index = 0; index < (available.size()); index++) {
+            _logger->printMessage(std::to_string(index + 1) + Info::COLON_SPACE +
+                                  available[index]->getTitle() + Info::NEWLINE);
         }
         _logger->printMessage(Prompt::SELECT_SONG_OR_DONE);
         int choice = _utility->getValidInteger();
@@ -390,11 +390,11 @@ void Application::displayPlaylist(Playlist* playlist) {
     }
 
     const auto& songs = playlist->getSongs();
-    for (int i = 0; i < (songs.size()); i++) {
-        std::string line = std::to_string(i + 1) + Info::COLON_SPACE +
-                           songs[i].getTitle();
+    for (int index = 0; index < (songs.size()); index++) {
+        std::string line = std::to_string(index + 1) + Info::COLON_SPACE +
+                           songs[index].getTitle();
 
-        if (i == playlist->getCurrentIndex()) {
+        if (index == playlist->getCurrentIndex()) {
             line += Info::CURRENT_MARKER;
         }
         _logger->printMessage(line + Info::NEWLINE);
