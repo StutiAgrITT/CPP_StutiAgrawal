@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/playlist_app.dir/__/main.cpp.o  -o ../playlist_app  libplaylist_lib.a /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1 
