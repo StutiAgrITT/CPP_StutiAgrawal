@@ -8,7 +8,7 @@ include(FetchContent)
 find_package(SFML 2.5 COMPONENTS audio QUIET)
 
 if(NOT SFML_FOUND)
-    message(STATUS "SFML not found — downloading via FetchContent...")
+    message(STATUS "SFML not found, downloading via FetchContent...")
     FetchContent_Declare(
         sfml
         GIT_REPOSITORY https://github.com/SFML/SFML.git
@@ -20,7 +20,7 @@ endif()
 find_package(GTest QUIET)
 
 if(NOT GTest_FOUND)
-    message(STATUS "GTest not found — downloading via FetchContent...")
+    message(STATUS "GTest not found, downloading via FetchContent...")
     FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
