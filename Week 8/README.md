@@ -17,5 +17,5 @@ Navigate to the folder where this file is present.
 ### 4. Run the Program
 `./build/playlist_app`
 
-### 5. Run the Yests
+### 5. Run the Tests
 `./build/playlist_tests`
