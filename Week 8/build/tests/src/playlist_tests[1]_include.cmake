@@ -1,5 +1,0 @@
-if(EXISTS "/home/stuti/Codes/CPP Training/Week 8/build/tests/src/playlist_tests[1]_tests.cmake")
-  include("/home/stuti/Codes/CPP Training/Week 8/build/tests/src/playlist_tests[1]_tests.cmake")
-else()
-  add_test(playlist_tests_NOT_BUILT playlist_tests_NOT_BUILT)
-endif()
