@@ -1,0 +1,19 @@
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+void run(int count) {
+    while (count-- > 0) {
+        std::cout << "hi\n";
+    }
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+}
+
+int main() {
+    std::thread t1(run, 5);
+    std::cout << "main()\n"; // can be before, between, after the hi's
+    t1.join();
+    t1.join(); // will crash: terminate called after throwing an instance of 'std::system_error' what():  Invalid argument
+    std::cout << "main() after\n"; // wont run
+    return 0;
+}
