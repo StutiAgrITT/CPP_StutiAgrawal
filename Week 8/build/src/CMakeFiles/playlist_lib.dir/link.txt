@@ -1,0 +1,2 @@
+/usr/bin/ar qc libplaylist_lib.a  CMakeFiles/playlist_lib.dir/Application.cpp.o CMakeFiles/playlist_lib.dir/AudioPlayer.cpp.o CMakeFiles/playlist_lib.dir/Logger.cpp.o CMakeFiles/playlist_lib.dir/Playlist.cpp.o CMakeFiles/playlist_lib.dir/PlaylistManager.cpp.o CMakeFiles/playlist_lib.dir/Song.cpp.o CMakeFiles/playlist_lib.dir/Utility.cpp.o
+/usr/bin/ranlib libplaylist_lib.a

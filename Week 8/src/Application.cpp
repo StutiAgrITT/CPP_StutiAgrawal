@@ -351,7 +351,9 @@ void Application::handleNext() {
     Song* song = _currentPlaylist->getCurrentSong();
     if (!song) return;
 
-    _audioPlayer->play(song->getFilePath());
+    if(!_audioPlayer->play(song->getFilePath())) {
+        _logger->printError(Error::AUDIO_LOAD_FAILED);
+    }
 }
 
 void Application::handlePrevious() {
@@ -360,7 +362,9 @@ void Application::handlePrevious() {
     Song* song = _currentPlaylist->getCurrentSong();
     if (!song) return;
 
-    _audioPlayer->play(song->getFilePath());
+    if(!_audioPlayer->play(song->getFilePath())) {
+        _logger->printError(Error::AUDIO_LOAD_FAILED);
+    }
 }
 
 void Application::handleStop() {

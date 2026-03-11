@@ -25,6 +25,7 @@ protected:
         manager = new PlaylistManager(mockLogger);
         app = new Application(manager, mockAudio, mockLogger, mockUtility);
         EXPECT_CALL(*mockLogger, printMessage(_)).Times(::testing::AnyNumber());
+        EXPECT_CALL(*mockLogger, printError(_)).Times(::testing::AnyNumber());
     }
     void TearDown() override {
         delete app;
@@ -147,6 +148,7 @@ protected:
         manager->getPlaylist("TestList")->addSong(Song("Song A", "songs/a.ogg"));
         manager->getPlaylist("TestList")->addSong(Song("Song B", "songs/b.ogg"));
         EXPECT_CALL(*mockLogger, printMessage(_)).Times(::testing::AnyNumber());
+        EXPECT_CALL(*mockLogger, printError(_)).Times(::testing::AnyNumber());
     }
     void TearDown() override {
         std::remove("data/TestList.txt");
@@ -248,9 +250,41 @@ TEST_F(ApplicationPlaylistTest, NextPlaysNextSong) {
     app->run();
 }
 
+TEST_F(ApplicationPlaylistTest, NextPrintsErrorOnAudioFailure) {
+    EXPECT_CALL(*mockAudio, play("songs/a.ogg")).WillOnce(::testing::Return(true));
+    EXPECT_CALL(*mockAudio, play("songs/b.ogg")).WillOnce(::testing::Return(false));
+    EXPECT_CALL(*mockLogger, printError(Error::AUDIO_LOAD_FAILED));
+    EXPECT_CALL(*mockAudio, stop()).Times(3);
+    EXPECT_CALL(*mockUtility, getValidInteger())
+        .WillOnce(::testing::Return(MAIN_SELECT_PLAYLIST))
+        .WillOnce(::testing::Return(1))
+        .WillOnce(::testing::Return(PLAYLIST_PLAY))
+        .WillOnce(::testing::Return(PLAYER_NEXT))
+        .WillOnce(::testing::Return(PLAYER_STOP))
+        .WillOnce(::testing::Return(PLAYLIST_BACK))
+        .WillOnce(::testing::Return(MAIN_EXIT));
+    app->run();
+}
+
 TEST_F(ApplicationPlaylistTest, PreviousWrapsToLastSong) {
     EXPECT_CALL(*mockAudio, play("songs/a.ogg")).WillOnce(::testing::Return(true));
     EXPECT_CALL(*mockAudio, play("songs/b.ogg")).WillOnce(::testing::Return(true));
+    EXPECT_CALL(*mockAudio, stop()).Times(3);
+    EXPECT_CALL(*mockUtility, getValidInteger())
+        .WillOnce(::testing::Return(MAIN_SELECT_PLAYLIST))
+        .WillOnce(::testing::Return(1))
+        .WillOnce(::testing::Return(PLAYLIST_PLAY))
+        .WillOnce(::testing::Return(PLAYER_PREVIOUS))
+        .WillOnce(::testing::Return(PLAYER_STOP))
+        .WillOnce(::testing::Return(PLAYLIST_BACK))
+        .WillOnce(::testing::Return(MAIN_EXIT));
+    app->run();
+}
+
+TEST_F(ApplicationPlaylistTest, PreviousPrintsErrorOnAudioFailure) {
+    EXPECT_CALL(*mockAudio, play("songs/a.ogg")).WillOnce(::testing::Return(true));
+    EXPECT_CALL(*mockAudio, play("songs/b.ogg")).WillOnce(::testing::Return(false));
+    EXPECT_CALL(*mockLogger, printError(Error::AUDIO_LOAD_FAILED));
     EXPECT_CALL(*mockAudio, stop()).Times(3);
     EXPECT_CALL(*mockUtility, getValidInteger())
         .WillOnce(::testing::Return(MAIN_SELECT_PLAYLIST))
