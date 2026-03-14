@@ -7,6 +7,7 @@ target_include_directories(traffic_lib PUBLIC
 add_executable(traffic_app ${PROJECT_SOURCE_DIR}/main.cpp)
 target_link_libraries(traffic_app
     traffic_lib
+    pthread
 )
 set_target_properties(traffic_app PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}

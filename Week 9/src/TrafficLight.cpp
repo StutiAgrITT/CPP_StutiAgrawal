@@ -18,10 +18,10 @@ LightState TrafficLight::getState(LaneId laneId) {
 }
 
 void TrafficLight::setState(LaneId laneId, LightState state) {
-    {
-        std::lock_guard<std::mutex> lock(_mutex);
-        _states[laneId] = state;
-    }
+
+    std::unique_lock<std::mutex> lock(_mutex);
+    _states[laneId] = state;
+    _mutex.unlock();
     if (state == GREEN) {
         _lanes[laneId]->notify();
     }

@@ -5,6 +5,7 @@ target_link_libraries(traffic_tests
     GTest::gtest
     GTest::gtest_main
     GTest::gmock
+    pthread
 )
 target_include_directories(traffic_tests PRIVATE
     ${PROJECT_SOURCE_DIR}/inc
