@@ -18,7 +18,6 @@ LightState TrafficLight::getState(LaneId laneId) {
 }
 
 void TrafficLight::setState(LaneId laneId, LightState state) {
-
     std::unique_lock<std::mutex> lock(_mutex);
     _states[laneId] = state;
     _mutex.unlock();
