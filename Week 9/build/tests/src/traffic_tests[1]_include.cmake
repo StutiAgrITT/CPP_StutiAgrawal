@@ -1,5 +1,0 @@
-if(EXISTS "/home/stuti/Codes/CPP Training/Week 9/build/tests/src/traffic_tests[1]_tests.cmake")
-  include("/home/stuti/Codes/CPP Training/Week 9/build/tests/src/traffic_tests[1]_tests.cmake")
-else()
-  add_test(traffic_tests_NOT_BUILT traffic_tests_NOT_BUILT)
-endif()

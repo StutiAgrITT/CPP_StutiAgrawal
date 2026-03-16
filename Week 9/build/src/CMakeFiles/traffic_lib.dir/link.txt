@@ -1,2 +1,0 @@
-/usr/bin/ar qc libtraffic_lib.a  CMakeFiles/traffic_lib.dir/Intersection.cpp.o CMakeFiles/traffic_lib.dir/Lane.cpp.o CMakeFiles/traffic_lib.dir/Semaphore.cpp.o CMakeFiles/traffic_lib.dir/Simulation.cpp.o CMakeFiles/traffic_lib.dir/TrafficLight.cpp.o
-/usr/bin/ranlib libtraffic_lib.a
