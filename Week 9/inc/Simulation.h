@@ -15,6 +15,7 @@ private:
     bool _running;
     void carLogic(LaneId laneId, int carId);
     void print(const std::string& message);
+    bool _stopped;
 public:
     Simulation(Intersection* intersection);
     ~Simulation();

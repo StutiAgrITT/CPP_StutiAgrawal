@@ -5,7 +5,7 @@
 #include <string>
 
 Simulation::Simulation(Intersection* intersection)
-    : _intersection(intersection), _running(false) {}
+    : _intersection(intersection), _running(false), _stopped(false) {}
 
 Simulation::~Simulation() {
     stop();
@@ -24,7 +24,10 @@ void Simulation::carLogic(LaneId laneId, int carId) {
     ILane* lane = _intersection->getLane(laneId);
     lane->enter();
 
-    if (!_running) return;
+    if (!_running) {
+        lane->release();
+        return;
+    }
 
     print(carStr + Info::ENTERING + std::to_string((int)laneId));
     std::this_thread::sleep_for(std::chrono::seconds(Timing::CAR_CROSS_DURATION));
@@ -67,6 +70,8 @@ void Simulation::run() {
 }
 
 void Simulation::stop() {
+    if (_stopped) return;
+    _stopped = true;
     _running = false;
     _intersection->stop();
 }

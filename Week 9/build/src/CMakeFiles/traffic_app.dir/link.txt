@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/traffic_app.dir/__/main.cpp.o  -o ../traffic_app  libtraffic_lib.a -lpthread 

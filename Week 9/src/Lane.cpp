@@ -9,6 +9,7 @@ void Lane::enter() {
         return _stopped || _light->getState(_laneId) == GREEN;
     });
     if (_stopped) return;
+    lock.unlock();
     _semaphore.acquire();
 }
 

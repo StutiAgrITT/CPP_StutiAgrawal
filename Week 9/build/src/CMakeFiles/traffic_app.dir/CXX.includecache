@@ -1,0 +1,92 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/Constants.h
+string
+-
+
+../inc/Enums.h
+
+../inc/ILane.h
+Enums.h
+../inc/Enums.h
+ITrafficLight.h
+../inc/ITrafficLight.h
+
+../inc/ITrafficLight.h
+Enums.h
+../inc/Enums.h
+
+../inc/Intersection.h
+ILane.h
+../inc/ILane.h
+ITrafficLight.h
+../inc/ITrafficLight.h
+Enums.h
+../inc/Enums.h
+Constants.h
+../inc/Constants.h
+thread
+-
+
+../inc/Lane.h
+ILane.h
+../inc/ILane.h
+ITrafficLight.h
+../inc/ITrafficLight.h
+Semaphore.h
+../inc/Semaphore.h
+Enums.h
+../inc/Enums.h
+Constants.h
+../inc/Constants.h
+mutex
+-
+condition_variable
+-
+
+../inc/Semaphore.h
+mutex
+-
+condition_variable
+-
+
+../inc/Simulation.h
+Intersection.h
+../inc/Intersection.h
+ILane.h
+../inc/ILane.h
+vector
+-
+thread
+-
+mutex
+-
+
+../inc/TrafficLight.h
+ITrafficLight.h
+../inc/ITrafficLight.h
+ILane.h
+../inc/ILane.h
+Enums.h
+../inc/Enums.h
+map
+-
+mutex
+-
+
+/home/stuti/Codes/CPP Training/Week 9/main.cpp
+Simulation.h
+/home/stuti/Codes/CPP Training/Week 9/Simulation.h
+Intersection.h
+/home/stuti/Codes/CPP Training/Week 9/Intersection.h
+TrafficLight.h
+/home/stuti/Codes/CPP Training/Week 9/TrafficLight.h
+Lane.h
+/home/stuti/Codes/CPP Training/Week 9/Lane.h
+
